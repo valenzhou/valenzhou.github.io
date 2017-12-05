@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>重温&lt;&lt;计算机操作系统&gt;&gt; | Mr.喵的网络日志</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="并发与并行概念并行是指两个或多个事件在同一时刻发生,而并发是两个或多个事件在同一时间间隔内发生.在多道程序环境下,并发性是指在一段时间内宏观上有多个程序在同时运行,但在单处理机系统中,每一时刻却仅能有一道程序执行,故微观上这些程序只能是分时的交替执行.倘若在多处理机,这些可以并发执行的程序便可分配到多个处理机上,实现并行执行. 理解如果某个系统支持两个或多个动作同时存在,name这个系统就是一个并">
+<meta name="keywords" content="计算机基础 操作系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重温&lt;&lt;计算机操作系统&gt;&gt;">
+<meta property="og:url" content="http://yoursite.com/2015/10/18/重温-计算机操作系统/index.html">
+<meta property="og:site_name" content="Mr.喵的网络日志">
+<meta property="og:description" content="并发与并行概念并行是指两个或多个事件在同一时刻发生,而并发是两个或多个事件在同一时间间隔内发生.在多道程序环境下,并发性是指在一段时间内宏观上有多个程序在同时运行,但在单处理机系统中,每一时刻却仅能有一道程序执行,故微观上这些程序只能是分时的交替执行.倘若在多处理机,这些可以并发执行的程序便可分配到多个处理机上,实现并行执行. 理解如果某个系统支持两个或多个动作同时存在,name这个系统就是一个并">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="http://oy299xjr2.bkt.clouddn.com/v2-674f0d37fca4fac1bd2df28a2b78e633_r.jpg">
+<meta property="og:updated_time" content="2017-11-14T06:02:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="重温&lt;&lt;计算机操作系统&gt;&gt;">
+<meta name="twitter:description" content="并发与并行概念并行是指两个或多个事件在同一时刻发生,而并发是两个或多个事件在同一时间间隔内发生.在多道程序环境下,并发性是指在一段时间内宏观上有多个程序在同时运行,但在单处理机系统中,每一时刻却仅能有一道程序执行,故微观上这些程序只能是分时的交替执行.倘若在多处理机,这些可以并发执行的程序便可分配到多个处理机上,实现并行执行. 理解如果某个系统支持两个或多个动作同时存在,name这个系统就是一个并">
+<meta name="twitter:image" content="http://oy299xjr2.bkt.clouddn.com/v2-674f0d37fca4fac1bd2df28a2b78e633_r.jpg">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body>
+    
+  
+      <div id="container" class="container">
+        <article id="post-重温-计算机操作系统" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav id="main-nav" class="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/categories">Categories</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      重温&lt;&lt;计算机操作系统&gt;&gt;
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h2 id="并发与并行"><a href="#并发与并行" class="headerlink" title="并发与并行"></a>并发与并行</h2><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>并行是指两个或多个事件在同一时刻发生,而并发是两个或多个事件在同一时间间隔内发生.在多道程序环境下,并发性是指在一段时间内宏观上有多个程序在同时运行,但在单处理机系统中,每一时刻却仅能有一道程序执行,故微观上这些程序只能是分时的交替执行.倘若在多处理机,这些可以并发执行的程序便可分配到多个处理机上,实现并行执行.</p>
+<h4 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h4><p>如果某个系统支持两个或多个动作<strong>同时存在</strong>,name这个系统就是一个并发系统.如果某个系统支持两个或多个动作<strong>同时执行</strong>,那么这个系统就是一个并行系统.并发系统与并行系统这两个定义之间的关键差异在于<strong>存在</strong>这个词.  在并发程序中可以同时拥有两个或多个线程,这意味着,如果程序在单核处理器上运行,那么这两个线程将交替换入或换出内存.这些线程是同时<strong>存在</strong>的,每个线程都处于执行过程中的某个状态.如果程序能够并行执行,那么就一定是运行在多核处理器上的.此时,程序中的每个线程都将分配到一个独立的处理器核上,因此可以同时运行.  我相信你已经能够得出结论:”并行概念是并发概念的一个子集”.也就是说,你可以编写一个拥有多个线程或进程的并发程序,但如果没有多核处理器来执行这个程序,那么就不能以并行的方式来运行代码.因此,凡是在求解单个问题涉及多个执行流程的编程模式或执行行为,都属于并发编程的范畴.  摘自:&lt;&lt;并发的艺术&gt;&gt;-[美]布雷谢斯 </p>
+<p>Erlang 之父 Joe Armstrong 用一张5岁小孩都能看懂的图解释了并发与并行的区别.<br><img src="http://oy299xjr2.bkt.clouddn.com/v2-674f0d37fca4fac1bd2df28a2b78e633_r.jpg" alt="并发与并行图解"><br>从图中可以看出,并发是两个队列交替使用一台咖啡机,并行是两个队列同时使用两台咖啡机.如果串行,一个队列使用一台咖啡机.并发和并行都可以是多个线程,就看这些线程能不能同时被多个CPU执行,如果可以说明是并行,而并发是多个线程被一个CPU轮流切换着执行.</p>
+<h2 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h2><h4 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h4><p>对进程较为经典的定义有:</p>
+<pre><code>1. 进程是一个程序及其数据在处理机上顺序执行时所发生的活动.
+2. 进程是程序在一个数据集合上运行的过程,它是系统进行资源分配和调度的一个独立单位.
+3. 系统为每个进程定义了一个数据结构-进程控制块(PCB).OS根据PCB来对并发执行的进程进行控制和管理.
+</code></pre><p>线程和进程的比较: </p>
+<pre><code>1. 再引入线程的操作系统中,通常一个进程都拥有若干个线程,至少有一个线程.
+2. 进程为资源拥有的最小单位,而线程作为调度和分派的基本单位,线程不拥有系统资源,可以访问资源.
+</code></pre><h4 id="理解-1"><a href="#理解-1" class="headerlink" title="理解"></a>理解</h4><p>进程和线程的主要差别在于他们是不同的操作系统资源的管理方式.进程有独立的地址空间,一个进程崩溃后,在保护模式下不会对其他进程产生影响,而线程只是一个进程中的不同执行路径.线程有自己的堆栈和局部变量,但线程没有单独的地址空间,一个线程死掉就等于整个进程死掉,所以在进程切换时,耗费资源较大,效率变差.但对于一些要求同时进行并且又要共享某些变量的并发操作,只能用进程,不能用线程.</p>
+<h2 id="生产者消费者问题"><a href="#生产者消费者问题" class="headerlink" title="生产者消费者问题"></a>生产者消费者问题</h2><h4 id="概念-2"><a href="#概念-2" class="headerlink" title="概念"></a>概念</h4><p>生产者消费者问题是一个经典的多进程同步问题,也叫缓存绑定问题.  既有两个进程:一组生产者进程和一组消费者进程共享一个初始值为空固定大小为n的缓存区.生产者的工作是制造一段数据,只要缓存没满就放入缓存区,否则必须等待,如此反复.同时,只要缓存区不为空,消费者才能从中取出消息,一个取出一段数据,否则只能等待.由于缓存区是临界资源,它只允许一个生产者放入消息,或一个消费者从中取出消息.  问题的核心是要保证不让生产者在缓存满的时候还要向内写数据,不让消费者试图从空的缓存中取出数据.</p>
+<h4 id="理解-2"><a href="#理解-2" class="headerlink" title="理解"></a>理解</h4><p>生产者和消费者对缓存区互斥访问是互斥关系,同时又是相互协作关系,即同步关系.那么需要解决的是互斥和同步PV操作的位置.使用”进程间通信”即可解决唤醒问题:  我们使用了两个信号标:full和empty.信号量mutex作为互斥信号量.用于控制互斥访问缓存池,互斥信号量初始值为1.信号量full用于记录当前缓冲池中”满”缓冲区数,初始值为0.信号量empty用于记录当前缓存区”空”缓存区数,初始值为n.新的数据增加后,full增加,empty减少.如果生产和试图在empty为0时减少其值,生产者就会被”催眠”.下一轮中有数据消费掉时,empty就会增加,生产者就会被”唤醒”.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">semaphore mutex = <span class="number">1</span>;<span class="comment">//临界区互斥信号量</span></span><br><span class="line">semaphore empty = n;<span class="comment">//空闲缓存区</span></span><br><span class="line">semaphore full = <span class="number">1</span>;<span class="comment">//缓存区初始化为空</span></span><br><span class="line">produce()&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        produce an item in dextp;<span class="comment">//生产数据</span></span><br><span class="line">        P(empty);<span class="comment">//获取空缓存区单元</span></span><br><span class="line">        P(mutex);<span class="comment">//进入临界区</span></span><br><span class="line">        add nextp to buffer;<span class="comment">//将数据放入缓存区</span></span><br><span class="line">        V(mutex);<span class="comment">//离开临界区,释放互斥信号量</span></span><br><span class="line">        V(full)<span class="comment">//满缓存区加1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">consume()&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        P(full);<span class="comment">//获取满缓存区单元</span></span><br><span class="line">        P(mutex);<span class="comment">//进入临界区</span></span><br><span class="line">        remove an item from buffer;<span class="comment">//拿走数据</span></span><br><span class="line">        V(mutex);<span class="comment">//离开临界区</span></span><br><span class="line">        V(empty);<span class="comment">//空缓存区单元加1</span></span><br><span class="line">        consume the item<span class="comment">//消费数据</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2015/10/18/重温-计算机操作系统/" class="article-date">
+  <time datetime="2015-10-18T07:19:25.000Z" itemprop="datePublished">2015-10-18</time>
+</a>
+
+        </li>
+        
+          <li>
+            <span class="label">Category:</span>
+            
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/理解计算机/">理解计算机</a>
+  </div>
+
+
+          </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/计算机基础-操作系统/">计算机基础 操作系统</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <a href="/2016/12/05/用NodeJS写一个爬虫/" id="article-nav-newer" class="article-nav-link-wrap newer">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          用NodeJS写一个爬虫
+        
+      </div>
+    </a>
+  
+  
+    <span id="article-nav-older" class="article-nav-link-wrap older"></span>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/valenzhou"><span class="fa fa-github-alt"></span></a></li>
+          
+            <li><a href="https://www.facebook.com/valen.zhou"><span class="fa fa-facebook"></span></a></li>
+          
+            <li><a href="https://twitter.com/valenzhou/"><span class="fa fa-twitter"></span></a></li>
+          
+            <li><a href="https://plus.google.com/"><span class="fa fa-google-plus"></span></a></li>
+          
+            <li><a href="https://www.google.com/"><span class="fa fa-globe"></span></a></li>
+          
+            <li><a href="/atom.xml"><span class="fa fa-rss"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>ipsum dolor sit amet, <strong>consectetur adipiscing elit.</strong> Fusce eget urna vitae velit <em>eleifend interdum at ac nisi. In nec ligula lacus. Cum sociis natoque</em> penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eu cursus erat, ut dapibus quam. Post</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
