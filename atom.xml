@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-06-22T07:28:52.000Z</updated>
+  <updated>2019-03-24T14:13:01.924Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>关于 JavaScript 隐式转换的一道题</title>
+    <link href="http://yoursite.com/2018/07/14/%E5%85%B3%E4%BA%8E-JavaScript-%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2%E7%9A%84%E4%B8%80%E9%81%93%E9%A2%98/"/>
+    <id>http://yoursite.com/2018/07/14/关于-JavaScript-隐式转换的一道题/</id>
+    <published>2018-07-14T11:39:54.000Z</published>
+    <updated>2019-03-24T14:13:01.924Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>让我们先看一道面试题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">当 a==1 &amp;&amp; a==2 &amp;&amp; a==3 为 true 时,a = ?</span><br><span class="line">简要分析 a 多次 == 一个不同的值成立,由此可以推断 a 是一个引用类型的值</span><br><span class="line">且比较时用到 == 而不是 === ,可以判断这道题考察的是 js 的隐式转换问题</span><br></pre></td></tr></table></figure></p><h3 id="其他值转换为字符串"><a href="#其他值转换为字符串" class="headerlink" title="其他值转换为字符串"></a>其他值转换为字符串</h3><ul><li><p>当值是原始类型时,直接转换为字符串类型</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">null</span> =&gt; <span class="string">'null'</span></span><br><span class="line"><span class="literal">undefined</span> =&gt; <span class="string">'undefined'</span></span><br><span class="line"><span class="literal">true</span> =&gt; <span class="string">'true'</span></span><br><span class="line"><span class="number">1</span> =&gt; <span class="string">'1'</span></span><br></pre></td></tr></table></figure></li><li><p>当值是引用类型时,先转换为原始类型,再转换为字符串.<br>String方法背后的转换规则，与Number方法基本相同，只是互换了valueOf方法和toString方法的执行顺序。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]) <span class="comment">// 1,2,3 因为[1,2,3].toString() 是'1,2,3',再调用 valueOf 是'1,2,3'</span></span><br><span class="line"><span class="built_in">String</span>([]) <span class="comment">// ''</span></span><br><span class="line">&#123;<span class="attr">a</span>:<span class="number">1</span>&#125; <span class="comment">// [object object]</span></span><br></pre></td></tr></table></figure></li></ul><h3 id="其他值转换为数字类型"><a href="#其他值转换为数字类型" class="headerlink" title="其他值转换为数字类型"></a>其他值转换为数字类型</h3><ul><li><p>当值是原始类型的转换规则</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 数字类型转数字类型</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="number">123</span>) <span class="comment">// 123</span></span><br><span class="line"><span class="comment">// 字符串转数字类型</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">'123a'</span>) <span class="comment">// NaN  Number 比 parseInt 严格,当有字符串无法转换时返回 NaN,而 parseInt 返回已经转换的值, 空字符串转成0</span></span><br><span class="line"><span class="comment">// 布尔值：true 转成 1，false 转成 0</span></span><br><span class="line"><span class="comment">// undefined：转成 NaN ,null 转成0</span></span><br></pre></td></tr></table></figure></li><li><p>当值是引用类型时的转换规则</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 先调用 valueOf(),如果不是原始类型的值再调用 toString,然后Number</span></span><br><span class="line"><span class="built_in">Number</span>(&#123;<span class="attr">x</span>: <span class="number">1</span>&#125;) <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure></li></ul><h3 id="其他值转换为布尔值"><a href="#其他值转换为布尔值" class="headerlink" title="其他值转换为布尔值"></a>其他值转换为布尔值</h3><p>只有 null,undefined,0,空字符串,NaN 转换为 false,其他所有值都转为 true</p><h3 id="引用类型转换为原始类型"><a href="#引用类型转换为原始类型" class="headerlink" title="引用类型转换为原始类型"></a>引用类型转换为原始类型</h3><p>先调用 valueOf(),如果未返回原始类型的值,再调用 toString()</p><h3 id="比较时的隐式转换规则"><a href="#比较时的隐式转换规则" class="headerlink" title="== 比较时的隐式转换规则"></a>== 比较时的隐式转换规则</h3><p>用一句话概括就是<strong>原始类型转数字,引用类型转原始类型</strong><br>true == 2 (布尔值先转换为数字类型再参与比较)<br>11 == ‘11’ (字符串转换为数字类型再参与比较)<br>{a:1} == ‘a:1’ (复杂类型转换为原始类型再参与比较)<br>null,undefined 互相==,与自身==,但与其他所有值都不==</p><h3 id="解析面试题"><a href="#解析面试题" class="headerlink" title="解析面试题"></a>解析面试题</h3><p>我们可以推测出 a 是引用类型,引用类型与原始类型比较时会先转换成原始类型参与比较,所以 a 每次参与比较都会先后调用自身的 valueOf()和 toString()方法,所以在最后调用 toSring 时让自身递增,就可以让条件成立.所以 a 的值就是.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = &#123;</span><br><span class="line">  i:<span class="number">1</span>,</span><br><span class="line">  toString: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.i++</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">a == <span class="number">1</span> &amp;&amp; a==<span class="number">2</span> &amp; a==<span class="number">3</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;让我们先看一道面试题&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gu
+      
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://yoursite.com/categories/JavaScript/"/>
+    
+    
+      <category term="前端 JavaScript" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF-JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>Sass和Less的总结</title>
