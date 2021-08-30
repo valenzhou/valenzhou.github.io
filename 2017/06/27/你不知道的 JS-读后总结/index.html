@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>你不知道的 JS-读后总结 | Mr.喵的网络日志</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="你不知道的 JavaScript作用域是什么1.1 编译原理    在传统编译语言的流程中，程序中的一段源代码在执行之前会经历三个步骤，统称为“编译”。 - 分词/词法分析(Tokenizing/Lexing)     var a = 2;通常会被分解成 为下面这些词法单元:var、a、=、2 、; - 解析/语法分析(Parsing)     将词法单元流(数组)转换成一个由元素逐级嵌套所组成的">
+<meta name="keywords" content="前端 JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你不知道的 JS-读后总结">
+<meta property="og:url" content="http://yoursite.com/2017/06/27/你不知道的 JS-读后总结/index.html">
+<meta property="og:site_name" content="Mr.喵的网络日志">
+<meta property="og:description" content="你不知道的 JavaScript作用域是什么1.1 编译原理    在传统编译语言的流程中，程序中的一段源代码在执行之前会经历三个步骤，统称为“编译”。 - 分词/词法分析(Tokenizing/Lexing)     var a = 2;通常会被分解成 为下面这些词法单元:var、a、=、2 、; - 解析/语法分析(Parsing)     将词法单元流(数组)转换成一个由元素逐级嵌套所组成的">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2021-08-30T09:46:58.925Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="你不知道的 JS-读后总结">
+<meta name="twitter:description" content="你不知道的 JavaScript作用域是什么1.1 编译原理    在传统编译语言的流程中，程序中的一段源代码在执行之前会经历三个步骤，统称为“编译”。 - 分词/词法分析(Tokenizing/Lexing)     var a = 2;通常会被分解成 为下面这些词法单元:var、a、=、2 、; - 解析/语法分析(Parsing)     将词法单元流(数组)转换成一个由元素逐级嵌套所组成的">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body>
+    
+  
+      <div id="container" class="container">
+        <article id="post-你不知道的 JS-读后总结" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav id="main-nav" class="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/categories">Categories</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      你不知道的 JS-读后总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h1 id="你不知道的-JavaScript"><a href="#你不知道的-JavaScript" class="headerlink" title="你不知道的 JavaScript"></a>你不知道的 JavaScript</h1><h3 id="作用域是什么"><a href="#作用域是什么" class="headerlink" title="作用域是什么"></a>作用域是什么</h3><p>1.1 编译原理<br>    在传统编译语言的流程中，程序中的一段源代码在执行之前会经历三个步骤，统称为“编译”。</p>
+<pre><code>- 分词/词法分析(Tokenizing/Lexing)
+    var a = 2;通常会被分解成 为下面这些词法单元:var、a、=、2 、;
+- 解析/语法分析(Parsing)
+    将词法单元流(数组)转换成一个由元素逐级嵌套所组成的代表了程序语法 结构的树。这个树被称为“抽象语法树”(Abstract Syntax Tree，AST)。
+- 代码生成
+    将 AST 转换为可执行代码的过程称被称为代码生成。将 var a = 2; 的 AST 转化为一组机器指 令，用来创建一个叫作 a 的变量(包括分配内存等)，并将一个值储存在 a 中。
+</code></pre><p>1.2 理解作用域<br>    编译器在编译过程的第二步中生成了代码，引擎执行它时，会通过查找变量 a 来判断它是 否已声明过。查找的过程由作用域进行协助，但是引擎执行怎样的查找，会影响最终的查 找结果。当变量出现在赋值操作的左侧时进行 LHS 查询，出现在右侧时进行 RHS 查询。表示是一个赋值操作 = 的左侧和右侧。<br>    RHS 查询与简单地查找某个变量的值别无二致，而 LHS 查询则是试图 找到变量的容器本身，从而可以对其赋值。你可以将 RHS 理解成 retrieve his source value(取到它的源值)，这意味着“得到某某的 值”。</p>
+<p>1.3 作用域嵌套<br>引擎从当前的执行作用域开始查找变量，如果找不到，就向上一级继续查找。当抵达最外层的全局作用域时，无论找到还是没找到，查找过程都会停止。</p>
+<p>1.4 异常<br>为什么区分 LHS 和 RHS 是一件重要的事情?<br>因为在变量还没有声明(在任何作用域中都无法找到该变量)的情况下，这两种查询的行为是不一样的。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>) </span>&#123; </span><br><span class="line">	<span class="built_in">console</span>.log( a + b );</span><br><span class="line">	 b = a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="string">`</span></span><br></pre></td></tr></table></figure></p>
+<p>第一次对 b 进行 RHS 查询时是无法找到该变量的。如果 RHS 查询在所有嵌套的作用域中遍寻不到所需的变量，引擎就会抛出 ReferenceError 异常。<br>相较之下，当引擎执行 LHS 查询时，如果在顶层(全局作用域)中也无法找到目标变量，全局作用域中就会创建一个具有该名称的变量，并将其返还给引擎，前提是程序运行在非 “严格模式”下。</p>
+<p>1.5 总结<br>作用域是一套规则，用于确定在何处以及如何查找变量(标识符)。如果查找的目的是对变量进行赋值，那么就会使用 LHS 查询;如果目的是获取变量的值，就会使用 RHS 查询。<br>不成功的 RHS 引用会导致抛出 ReferenceError 异常。不成功的 LHS 引用会导致自动隐式 地创建一个全局变量(非严格模式下)</p>
+<h3 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h3><p>作用域共有两种主要的工作模型。第一种是最为普遍的，被大多数编程语言所采用的词法作用域，我们会对这种作用域进行深入讨论。另外一种叫作动态作用域，仍有一些编程语言在使用(比如 Bash 脚本、Perl 中的一些模式等)。</p>
+<p>2.1 词法阶段<br>大部分标准语言编译器的第一个工作阶段叫作词法化,词法作用域是由你在写 代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变(大部分情况下是这样的).<br>作用域查找会在找到第一个匹配的标识符时停止。在多层的嵌套作用域中可以定义同名的 标识符，这叫作“遮蔽效应”.作用域查找始终从运行时所处的最内部作用域开始，逐级向外或者说向上进行，直到遇见第一个匹配的标识符为止。<br>全局变量会自动成为全局对象(比如浏览器中的 window 对象)的属性,window.a</p>
+<p>2.2 欺骗词法<br>JavaScript 中的 eval(..) 函数可以在运行期修改书写期的词法作用域。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">str, a</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">eval</span>( str ); <span class="comment">// 欺骗! console.log( a, b );</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">2</span>;</span><br><span class="line">foo( <span class="string">"var b = 3;"</span>, <span class="number">1</span> ); <span class="comment">// 1, 3</span></span><br></pre></td></tr></table></figure></p>
+<p>JavaScript 中另一个难以掌握(并且现在也不推荐使用)的用来欺骗词法作用域的功能是 with 关键字。with 通常被当作重复引用同一个对象中的多个属性的快捷方式，可以不需要重复引用对象本身。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">with</span> (obj) &#123;</span><br><span class="line">		a = <span class="number">2</span>;</span><br><span class="line">	 &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">a</span>: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">b</span>: <span class="number">3</span></span><br><span class="line">&#125;;</span><br><span class="line">foo( o1 );</span><br><span class="line"><span class="built_in">console</span>.log( o1.a ); <span class="comment">// 2</span></span><br><span class="line">foo( o2 );</span><br><span class="line"><span class="built_in">console</span>.log( o2.a ); <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log( a ); <span class="comment">// 2   ——a 被泄漏到全局作用域上了!</span></span><br><span class="line"><span class="string">`</span></span><br></pre></td></tr></table></figure></p>
+<p>with 声明实际上是根据你传递给它的对象凭空创建了一个全新的词法作用域。当我们将 o2 作为作用域时，其中并没有 a 标识符， 因此进行了正常的 LHS 标识符查找,一直向上没有找到标识符 a,因此当 a=2 执行时，自动创建了一个全局变量.</p>
+<p>2.2.3 性能<br>JavaScript 引擎会在编译阶段进行数项的性能优化。其中有些优化依赖于能够根据代码的词法进行静态分析，并预先确定所有变量和函数的定义位置，才能在执行过程中快速找到 标识符。如果代码中大量使用 eval(..) 或 with，那么运行起来一定会变得非常慢。</p>
+<h3 id="函数作用域和块作用域"><a href="#函数作用域和块作用域" class="headerlink" title="函数作用域和块作用域"></a>函数作用域和块作用域</h3><p>3.1 函数中的作用域</p>
+<p>函数作用域的含义是指，属于这个函数的全部变量都可以在整个函数的范围内使用及复用(事实上在嵌套的作用域中也可以使用)。这种设计方案是非常有用的，能充分利用 JavaScript 变量可以根据需要改变值类型的“动态”特性。</p>
+<p>3.2 隐藏内部实现<br>我们可以把变量和函数包裹在一个函数的作用域中，然后用这个作用域来“隐藏”它们。为什么“隐藏”变量和函数是一个有用的技术?如果所有变量和函数都在全局作 用域中，当然可以在所有的内部嵌套作用域中访问到它们。但这样会破坏前面提到的最小 特权原则，因为可能会暴漏过多的变量或函数，而这些变量或函数本应该是私有的，正确 的代码应该是可以阻止对这些变量或函数进行访问的。在任意代码片段外部添加包装函数，可以将内部的变量和函数定义“隐<br>藏”起来，外部作用域无法访问包装函数内部的任何内容。<br>“隐藏”作用域中的变量和函数所带来的另一个好处，是可以避免同名标识符之间的冲突， 两个标识符可能具有相同的名字但用途却不一样，无意间可能造成命名冲突。冲突会导致 变量的值被意外覆盖。</p>
+<p>3.3 函数作用域<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123; <span class="comment">// &lt;-- 添加这一行 </span></span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line"><span class="built_in">console</span>.log( a ); <span class="comment">// 3 </span></span><br><span class="line">&#125;)(); <span class="comment">// &lt;-- 以及这一行 </span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log( a ); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
+<p>(function foo(){ .. })作为函数表达式意味着foo只能在..所代表的位置中被访问，外部作用域则不行。foo 变量名被隐藏在自身中意味着不会非必要地污染外部作用域。</p>
+<p>3.3.1 匿名和具名<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setTimeout( <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">"I waited 1 second!"</span>);</span><br><span class="line">&#125;, <span class="number">1000</span> );</span><br></pre></td></tr></table></figure></p>
+<p>匿名函数表达式，因为 function().. 没有名称标识符。函数表达式可以是匿名的，而函数声明则不可以省略函数名——在 JavaScript 的语法中这是非法的。<br>行内函数表达式非常强大且有用——匿名和具名之间的区别并不会对这点有任何影响。给函数表达式指定一个函数名可以有效解决以上问题。始终给函数表达式命名是一个最佳实践:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">setTimeout( <span class="function"><span class="keyword">function</span> <span class="title">timeoutHandler</span>(<span class="params"></span>) </span>&#123; <span class="comment">// &lt;-- 快看，我有名字了! </span></span><br><span class="line">	<span class="built_in">console</span>.log( <span class="string">"I waited 1 second!"</span> );</span><br><span class="line">&#125;, <span class="number">1000</span> );</span><br></pre></td></tr></table></figure></p>
+<p>3.3.2 立即执行函数表达式<br>(function foo(){ .. })();立即执行函数表达式IIFE.<br>IIFE 的另一个非常普遍的进阶用法是把它们当作函数调用并传递参数进去。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">IIFE</span>(<span class="params"> global </span>) </span>&#123;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line"><span class="built_in">console</span>.log( a ); <span class="comment">// 3 </span></span><br><span class="line"><span class="built_in">console</span>.log( global.a ); <span class="comment">// 2</span></span><br><span class="line">&#125;)( <span class="built_in">window</span> ); </span><br><span class="line"><span class="built_in">console</span>.log( a ); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
+<p>IIFE 还有一种变化的用途是倒置代码的运行顺序，将需要运行的函数放在第二位，在 IIFE 执行之后当作参数传递进去。这种模式在 UMD(Universal Module Definition)项目中被广 泛使用。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">IIFE</span>(<span class="params"> def </span>) </span>&#123; </span><br><span class="line">	def( <span class="built_in">window</span> );</span><br><span class="line">&#125;)(<span class="function"><span class="keyword">function</span> <span class="title">def</span>(<span class="params"> global </span>) </span>&#123;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line"><span class="built_in">console</span>.log( a ); <span class="comment">// 3 </span></span><br><span class="line"><span class="built_in">console</span>.log( global.a ); <span class="comment">// 2</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>函数表达式 def 定义在片段的第二部分，然后当作参数(这个参数也叫作 def)被传递进 IIFE 函数定义的第一部分中。最后，参数 def(也就是传递进去的函数)被调用，并将 window 传入当作 global 参数的值.</p>
+<p>3.4 块作用域<br>with 关键字。它不仅是一个难于理解的结构，同时也是块作用域的一个例子(块作用域的一种形式)，用 with 从对象中创建出的作用域仅在 with 声明中而非外部作用域中有效。<br>try/catch 的 catch 分句会创建一个块作用域，其中声明的变量仅在 catch 内部有效。<br>let/const为其声明的变量隐式地了所在的块作用域。但是使用 let 进行的声明不会在块作用域中进行提升。</p>
+<h3 id="提升"><a href="#提升" class="headerlink" title="提升"></a>提升</h3><p>无论作用域中的声明出现在什么地方，都将在代码本身被执行前首先进行处理。这个过程被称为提升。<br>函数声明和变量声明都会被提升。函数会首先被提升，然后才是变量。</p>
+<h3 id="作用域闭包"><a href="#作用域闭包" class="headerlink" title="作用域闭包"></a>作用域闭包</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> 	<span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">		<span class="built_in">console</span>.log( a );</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> bar;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> baz = foo();</span><br><span class="line">baz(); <span class="comment">// 2 —— 朋友，这就是闭包的效果。</span></span><br></pre></td></tr></table></figure>
+<p>函数 bar() 的词法作用域能够访问 foo() 的内部作用域。然后我们将 bar() 函数本身当作 一个值类型进行传递。在这个例子中，我们将 bar 所引用的函数对象本身当作返回值。<br>在 foo() 执行后，其返回值(也就是内部的 bar() 函数)赋值给变量 baz 并调用 baz()，实 际上只是通过不同的标识符引用调用了内部的函数 bar()。<br>在 foo() 执行后，通常会期待 foo() 的整个内部作用域都被销毁，因为我们知道引擎有垃 圾回收器用来释放不再使用的内存空间。闭包的“神奇”之处正是可以阻止这件事情的发生。事实上内部作用域依然存在，因此 没有被回收。谁在使用这个内部作用域?原来是 bar() 本身在使用。<br>拜 bar() 所声明的位置所赐，它拥有涵盖 foo() 内部作用域的闭包，使得该作用域能够一 直存活，以供 bar() 在之后任何时间进行引用。bar() 依然持有对该作用域的引用，而这个引用就叫作闭包。</p>
+<p>5.4 循环和闭包<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">1</span>; i&lt;=<span class="number">5</span>; i++) &#123; </span><br><span class="line">	setTimeout( <span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log( i ); </span><br><span class="line">	&#125;, i*<span class="number">1000</span> );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这段代码在运行时会以每秒一次的频率输出五次 6。尽管循环中的五个函数是在各个迭代中分别定义的，但是它们都被封闭在一个共享的全局作用域中，因此实际上只有一个 i。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">1</span>; i&lt;=<span class="number">5</span>; i++) &#123;</span><br><span class="line"> (<span class="function"><span class="keyword">function</span>(<span class="params">j</span>) </span>&#123;</span><br><span class="line">	setTimeout( <span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">		<span class="built_in">console</span>.log( j );</span><br><span class="line">     	&#125;, j*<span class="number">1000</span> );</span><br><span class="line">  &#125;)(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>试试 IIEF 函数.在迭代内使用 IIFE 会为每个迭代都生成一个新的作用域，使得延迟函数的回调可以将新的<br>作用域封闭在每个迭代内部，每个迭代中都会含有一个具有正确值的变量供我们访问。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i=<span class="number">1</span>; i&lt;=<span class="number">5</span>; i++) &#123; </span><br><span class="line">	setTimeout( <span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log( i ); </span><br><span class="line">	&#125;, i*<span class="number">1000</span> );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> let 声明，可以用来劫持块作用域，并且在这个块作用域中声明一个变量。本质上这是将一个块转换成一个可以被关闭的作用域。</p>
+<p> 5.5 模块<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> something = <span class="string">"cool"</span>; </span><br><span class="line">	<span class="keyword">var</span> another = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">		<span class="built_in">console</span>.log( something );</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">doAnother</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log( another.join( <span class="string">" ! "</span> ) );</span><br><span class="line">	&#125; </span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> &#123;</span><br><span class="line">		doSomething: doSomething,</span><br><span class="line">		 doAnother: doAnother</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个模式在 JavaScript 中被称为模块。最常见的实现模块模式的方法通常被称为模块暴露.foo只是一个函数，必须要通过调用它来创建一个模块实例。如果不执行 外部函数，内部作用域和闭包都无法被创建。<br>这 个返回的对象中含有对内部函数而不是内部数据变量的引用。我们保持内部数据变量是隐 藏且私有的状态。可以将这个对象类型的返回值看作本质上是模块的公共 API。<br>我们可以将模块函数转换成了 IIFE，立即调用这个函数并将返回值直接赋值给 单例的模块实例标识符 foo。<code>var foo = (function xxx(){...})();</code></p>
+<h3 id="this和对象原型"><a href="#this和对象原型" class="headerlink" title="this和对象原型"></a>this和对象原型</h3><p>this到底是什么?this 是在运行时进行绑定的，并不是在编写时绑定，它的上下文取决于函数调 用时的各种条件。当一个函数被调用时，会创建一个活动记录(有时候也称为执行上下文)。这个记录会包 含函数在哪里被调用(调用栈)、函数的调用方法、传入的参数等信息。this 就是记录的 其中一个属性，会在函数执行的过程中用到。</p>
+<p>2.1 调用位置<br>寻找调用位置最重要的是要分析调用栈(就是为了到达当前执行位置所调用的所有函数)。我们关心的 <strong>调用位置就在当前正在执行的函数的前一个调用中。</strong><br>2.2 绑定规则</p>
+<p>2.2.1 默认绑定<br>独立函数调用。可以把这条规则看作是无法应用其他规则时的默认规则。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">	<span class="built_in">console</span>.log( <span class="keyword">this</span>.a );</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>; </span><br><span class="line">foo(); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
+<p>声明在全局作用域中的变量(比如 var a = 2)就是全局对 象的一个同名属性。foo() 是直接使用不带任何修饰的函数引用进行调用的，因此只能使用默认绑定，因此 this 指向全局对象。严格模式下全局对象将无法使用默认绑定，因此 this 会绑定到 undefined.</p>
+<p>2.2.2 隐式绑定</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">	<span class="built_in">console</span>.log( <span class="keyword">this</span>.a );</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj2 = &#123; </span><br><span class="line">	a: <span class="number">42</span>,</span><br><span class="line">	foo: foo </span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> obj1 = &#123; </span><br><span class="line">	a: <span class="number">2</span>,</span><br><span class="line">	obj2: obj2 </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj1.obj2.foo(); <span class="comment">// 42</span></span><br></pre></td></tr></table></figure>
+<p>当函数引用有上下文对象时，隐式绑定规则会把函数调用中的 this 绑定到这个上下文对象。对象属性引用链中只有最顶层或者说最后一层会影响调用位置。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">	<span class="built_in">console</span>.log( <span class="keyword">this</span>.a );</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123; </span><br><span class="line">	a: <span class="number">2</span>,</span><br><span class="line">	foo: foo </span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> bar = obj.foo; <span class="comment">// 函数别名!</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="string">"oops, global"</span>; <span class="comment">// a 是全局对象的属性 bar(); // "oops, global"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doFoo</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line"><span class="comment">// fn 其实引用的是 foo fn(); // &lt;-- 调用位置!</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//参数传递其实就是一种隐式赋值，因此我们传入函数时也会被隐式赋值</span></span><br><span class="line">doFoo( obj.foo ); <span class="comment">// "oops, global"</span></span><br></pre></td></tr></table></figure>
+<p>一个最常见的 this 绑定问题就是被隐式绑定的函数会丢失绑定对象，也就是说它会应用默认绑定，从而把 this 绑定到全局对象(严格模式下是undefined)。<br>虽然 bar 是 obj.foo 的一个引用，但是实际上，它引用的是 foo 函数本身，因此此时的 bar() 其实是一个不带任何修饰的函数调用，因此应用了默认绑定。</p>
+<p>2.2.3 显式绑定<br> bind,call(..) 和 apply(..) 方法<br> <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">a</span>:<span class="number">2</span>&#125;;</span><br><span class="line">foo.call(obj); <span class="comment">//2</span></span><br></pre></td></tr></table></figure></p>
+<p> 2.2.4 new绑定<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>) </span>&#123; </span><br><span class="line">	<span class="keyword">this</span>.a = a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> bar = <span class="keyword">new</span> foo(<span class="number">2</span>); </span><br><span class="line"><span class="built_in">console</span>.log( bar.a ); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure></p>
+<p>使用 new 来调用 foo(..) 时，我们会构造一个新对象并把它绑定到 foo(..) 调用中的 this 上。new 是最后一种可以影响函数调用时 this 绑定行为的方法，我们称之为 new 绑定。</p>
+<p>2.2.5 优先级</p>
+<ol>
+<li>函数是否在new中调用(new绑定)?如果是的话this绑定的是新创建的对象。<code>var bar = new foo()</code></li>
+<li>函数是否通过call、apply(显式绑定)或者硬绑定调用?如果是的话，this绑定的是 指定的对象。<code>var bar = foo.call(obj2)</code></li>
+<li>函数是否在某个上下文对象中调用(隐式绑定)?如果是的话，this 绑定的是那个上下文对象。<code>var bar = obj1.foo()</code></li>
+<li>如果都不是的话，使用默认绑定。如果在严格模式下，就绑定到undefined，否则绑定到全局对象。<code>var bar = foo()</code></li>
+</ol>
+<p>2.2.6 箭头函数<br>箭头函数不使用 this 的四种标准规则，而是根据外层(函数或者全局)作用域来决定 this。用更常见的词法作用域取代了传统的 this 机制。</p>
+<h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><p>无论返回值是什么类型，每次访问对象的属性就是属性访问。如果属性访问返回的是一个函数，那它也并不是一个“方法”。属性访问返回的函数和其他函数没有任何区别(除了 可能发生的隐式绑定 this)。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">	<span class="built_in">console</span>.log( <span class="string">"foo"</span> );</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> someFoo = foo; <span class="comment">// 对 foo 的变量引用</span></span><br><span class="line"><span class="keyword">var</span> myObject = &#123; </span><br><span class="line">	someFoo: foo</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">foo; <span class="comment">// function foo()&#123;..&#125;</span></span><br><span class="line">someFoo; <span class="comment">// function foo()&#123;..&#125; </span></span><br><span class="line">myObject.someFoo; <span class="comment">// function foo()&#123;..&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>someFoo 和 myObject.someFoo 只是对于同一个函数的不同引用，并不能说明这个函数是特 别的或者“属于”某个对象。如果 foo() 定义时在内部有一个 this 引用，那这两个函数引用的唯一区别就是 myObject.someFoo 中的 this 会被隐式绑定到一个对象。无论哪种引用形式都不能称之为“方法”。</p>
+<p>3.3.3 数组<br>数组也是对象，所以虽然每个下标都是整数，你仍然可以给数组添加属性:如果你试图向数组添加一个属性，但是属性名“看起来”像一个数字，那它会变成 一个数值下标.</p>
+<p>3.3.4 复制对象<br>对于 JSON 安全(也就是说可以被序列化为一个 JSON 字符串并且可以根据这个字符串解析出一个结构和值完全一样的对象)的对象来说，有一种巧妙的复制方法:<br><code>var newObj = JSON.parse( JSON.stringify( someObj ) );</code>这种方法需要保证对象是 JSON 安全的，所以只适用于部分情况。<br>ES6 定义了 Object.assign(..) 方法来实现浅复制。</p>
+<p>3.3.5 属性描述符<br>从 ES5 开始，所有的属性都具备了属性描述符。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myObject = &#123; </span><br><span class="line">	a:<span class="number">2</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor( myObject, <span class="string">"a"</span> ); </span><br><span class="line"><span class="comment">// &#123;</span></span><br><span class="line"><span class="comment">// value: 2,</span></span><br><span class="line"><span class="comment">// writable: true,可写</span></span><br><span class="line"><span class="comment">// enumerable: true,可枚举</span></span><br><span class="line"><span class="comment">// configurable: true 可配置</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"><span class="string">`</span></span><br></pre></td></tr></table></figure></p>
+<p>在创建普通属性时属性描述符会使用默认值，我们可以使用 Object.defineProperty(..) 来添加一个新属性或者修改一个已有属性(如果它是 configurable)并对特性进行设置。</p>
+<h3 id="混合对象“类”"><a href="#混合对象“类”" class="headerlink" title="混合对象“类”"></a>混合对象“类”</h3><p>4.1.2 JavaScript中的“类”<br>JavaScript 只有一些近似类的语法元素,虽然有近似类的语法，但是 JavaScript 的机制似乎一直在阻止你使用类设计模式。在 近似类的表象之下，JavaScript 的机制其实和类完全不同。在软件设计中类是一种可选的模式，你需要自己决定是否在 JavaScript 中使用它。</p>
+<p>4.2.2 构造函数<br>类实例是由一个特殊的类方法构造的，这个方法名通常和类名相同，被称为构造函数。这个方法的任务就是初始化实例需要的所有信息(状态)。构造函数会返回一个对象(也就是类的一个实例).</p>
+<p>4.3 类的继承<br>子类会包含父类行为的原始副本，但是也可以重写所有继承的行为甚至定义新行为。JavaScript 本身并不提供“多重继承”功能。</p>
+<p>4.3.1 多态</p>
+<p>4.4 混入<br>在继承或者实例化时，JavaScript 的对象机制并不会自动执行复制行为。<br>由于在其他语言中类表现出来的都是复制行为，因此 JavaScript 开发者也想出了一个方法来模拟类的复制行为，这个方法就是混入。接下来我们会看到两种类型的混入:显式和隐式。<br>4.4.1 显式混入<br>由于 JavaScript 不会自动实现复制行为，所以我们需要手动实现复制功能。这个功能在许多库和框架中被称为 extend(..)，但是为了方便理解我们称之为 mixin(..)。<br>现在我们来分析一下 mixin(..) 的工作原理。它会遍历 sourceObj(本例中是 Vehicle)的 属性，如果在 targetObj(本例中是 Car)没有这个属性就会进行复制。<br>JavaScript 中的函数无法(用标准、可靠的方法)真正地复制，所以你只能复制对共享函数对象的引用.</p>
+<h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><p>5.1 [[Prototype]]<br>JavaScript 中的对象有一个特殊的 [[Prototype]] 内置属性，其实就是对于其他对象的引用。几乎所有的对象在创建时 [[Prototype]] 属性都会被赋予一个非空的值。<br>使用 for..in 遍历对象时原理和查找 [[Prototype]] 链类似，任何可以通过原型链访问到 (并且是 enumerable)的属性都会被枚举。使用 in 操作符来检查属性在对象<br>中是否存在时，同样会查找对象的整条原型链(无论属性是否可枚举)</p>
+<p>5.2.2 “构造函数”<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line">Foo.prototype.constructor === Foo; <span class="comment">// true</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> Foo();</span><br><span class="line">a.constructor === Foo; <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>Foo.prototype 默认有一个公有并且不可枚举的属性 .constructor，这个属性引用的是对象关联的函数.<br>在 JavaScript 中对于“构造函数”最准确的解释是，所有带 new 的函数调用。<br>.constructor 并不是一个不可变属性。它是不可枚举(参见上面的代码)的，但是它的值是可写的(可以被修改)。constructor 是一个非常不可靠并且不安全的引用。</p>
+<p>5.3 (原型)继承<br><code>Bar.prototype = Object.create(Foo.prototype)</code>这条语句的意思是:“创建一个新的 Bar.prototype 对象并把它关联到 Foo. prototype”。<br>如果能有一个标准并且可靠的方法来修改对象的 [[Prototype]] 关联就好了。在 ES6 之前， 我们只能通过设置 .<strong>proto</strong> 属性来实现，但是这个方法并不是标准并且无法兼容所有浏 览器。ES6 添加了辅助函数 Object.setPrototypeOf(..)，可以用标准并且可靠的方法来修改关联。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES6 之前需要抛弃默认的 Bar.prototype</span></span><br><span class="line">Bar.ptototype = <span class="built_in">Object</span>.create( Foo.prototype );</span><br><span class="line"><span class="comment">// ES6 开始可以直接修改现有的 Bar.prototype </span></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf( Bar.prototype, Foo.prototype );</span><br></pre></td></tr></table></figure>
+<p>5.4 instanceof<br><code>a instanceof Foo; // true</code> instanceof 回答的问题是:在 a 的整条 [[Prototype]] 链中是否有指向 Foo.prototype 的对象?可惜，这个方法只能处理对象(a)和函数(带 .prototype 引用的 Foo)之间的关系。</p>
+<p>判断两个对象(比如 a 和 b)之间是否通过 [[Prototype]] 链关联,<code>b.isPrototypeOf( c );</code></p>
+<p>直接获取一个对象的 [[Prototype]] 链。在 ES5 中，标准的方法是: <code>Object.getPrototypeOf( a );</code><br>大多浏览器也支持一种非标准的方法来访问内部 [[Prototype]] 属性<code>a.__proto__ === Foo.prototype; // true</code>如果你想直接查找(甚至可以通过 .<strong>proto</strong>.<strong>ptoto</strong>… 来遍历) 原型链的话，这个方法非常有用。</p>
+<p>5.5 Object.create()的polyfill代码<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.create = <span class="function"><span class="keyword">function</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>)</span>&#123;&#125; </span><br><span class="line">	F.prototype = o; </span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> F();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2017/06/27/你不知道的 JS-读后总结/" class="article-date">
+  <time datetime="2017-06-27T09:44:04.000Z" itemprop="datePublished">2017-06-27</time>
+</a>
+
+        </li>
+        
+          <li>
+            <span class="label">Category:</span>
+            
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </div>
+
+
+          </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端-JavaScript/">前端 JavaScript</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <a href="/2017/06/27/JavaScript-作用域和变量提升/" id="article-nav-newer" class="article-nav-link-wrap newer">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaScript 作用域和变量提升
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/03/CSS常见布局实现/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">CSS常见布局实现</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/valenzhou"><span class="fa fa-github-alt"></span></a></li>
+          
+            <li><a href="https://www.facebook.com/valen.zhou"><span class="fa fa-facebook"></span></a></li>
+          
+            <li><a href="https://twitter.com/valenzhou/"><span class="fa fa-twitter"></span></a></li>
+          
+            <li><a href="https://plus.google.com/"><span class="fa fa-google-plus"></span></a></li>
+          
+            <li><a href="https://www.google.com/"><span class="fa fa-globe"></span></a></li>
+          
+            <li><a href="/atom.xml"><span class="fa fa-rss"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>ipsum dolor sit amet, <strong>consectetur adipiscing elit.</strong> Fusce eget urna vitae velit <em>eleifend interdum at ac nisi. In nec ligula lacus. Cum sociis natoque</em> penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eu cursus erat, ut dapibus quam. Post</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>

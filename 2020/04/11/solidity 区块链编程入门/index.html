@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>solidity 区块链编程入门 | Mr.喵的网络日志</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="solidity 区块链编程入门编译器Remix编译器 可以在线使用或离线使用.使用 node 可以安装 solidity 编译器 solcjsmac 可以通过homebrew 安装 编译器 solidity 源文件结构pragma solidity ^0.5.2; 表示版本号及编辑器版本import * as symbolName from &amp;quot;filename&amp;quot;;导入其他源文">
+<meta name="keywords" content="solidity ETH">
+<meta property="og:type" content="article">
+<meta property="og:title" content="solidity 区块链编程入门">
+<meta property="og:url" content="http://yoursite.com/2020/04/11/solidity 区块链编程入门/index.html">
+<meta property="og:site_name" content="Mr.喵的网络日志">
+<meta property="og:description" content="solidity 区块链编程入门编译器Remix编译器 可以在线使用或离线使用.使用 node 可以安装 solidity 编译器 solcjsmac 可以通过homebrew 安装 编译器 solidity 源文件结构pragma solidity ^0.5.2; 表示版本号及编辑器版本import * as symbolName from &amp;quot;filename&amp;quot;;导入其他源文">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2021-08-30T11:32:44.517Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="solidity 区块链编程入门">
+<meta name="twitter:description" content="solidity 区块链编程入门编译器Remix编译器 可以在线使用或离线使用.使用 node 可以安装 solidity 编译器 solcjsmac 可以通过homebrew 安装 编译器 solidity 源文件结构pragma solidity ^0.5.2; 表示版本号及编辑器版本import * as symbolName from &amp;quot;filename&amp;quot;;导入其他源文">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body>
+    
+  
+      <div id="container" class="container">
+        <article id="post-solidity 区块链编程入门" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav id="main-nav" class="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/categories">Categories</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      solidity 区块链编程入门
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h1 id="solidity-区块链编程入门"><a href="#solidity-区块链编程入门" class="headerlink" title="solidity 区块链编程入门"></a>solidity 区块链编程入门</h1><h3 id="编译器"><a href="#编译器" class="headerlink" title="编译器"></a>编译器</h3><p>Remix编译器 可以在线使用或离线使用.<br>使用 node 可以安装 solidity 编译器 solcjs<br>mac 可以通过homebrew 安装 编译器 solidity</p>
+<h3 id="源文件结构"><a href="#源文件结构" class="headerlink" title="源文件结构"></a>源文件结构</h3><p><code>pragma solidity ^0.5.2;</code> 表示版本号及编辑器版本<br><code>import * as symbolName from &quot;filename&quot;;</code>导入其他源文件</p>
+<h3 id="值类型"><a href="#值类型" class="headerlink" title="值类型"></a>值类型</h3><ol>
+<li><p>整数类型分为 int/uint 定义. 可以显式设置占用空间大小,默认是 int256/uint256.</p>
+</li>
+<li><p>定长浮点类型: fixed/ufixed 表示各种大小有符号和无符号的定长浮点型.分别是 fixed128x19 和 ufixed128x19 的别名,第一个数字表示占用的位数,必须是 8 的倍数,第二个数字是可用的小数点位.</p>
+</li>
+<li><p>布尔型bool 分为 true 和 false</p>
+</li>
+<li><p>运算符与 javascript 相同,除 === 之外.</p>
+</li>
+<li><p>以太坊地址为 160 位即 20 字节大小.用 address 表示地址类型.地址有两种 address payable 可以接受以太币,而 address 则不行.前者可以隐式转换为普通地址,但普通地址要想转换为 payable 必须通过 payable()函数.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">address public owner; <span class="comment">// 定义地址</span></span><br><span class="line">owner.balance; <span class="comment">//查看余额</span></span><br><span class="line">addressA.transfer(<span class="number">1</span> ether)<span class="comment">// 像 A 转 1 eth,地址无效或余额不足会抛出异常.</span></span><br><span class="line">addressA.transfer.gas(<span class="number">120000</span>)(<span class="number">1</span> ether) <span class="comment">// 转账 附带 gas 的写法</span></span><br><span class="line">owner.send(<span class="number">1</span> ether) <span class="comment">// send 是 transfer 的低级版本,有风险,合约失败返回 false,建议使用 transfer</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>每一个 contract 合约都有自己的类型,可以显式的转换为 adress 类型,只有当合约具有 receive(接收) 函数或 payable 回退函数时,才能显式和 address payable 类型相互转换.转换仍然使用 address()执行,如果没有接收函数和回退函数需要用 payable(address(x))转换为 address payable.<br> 对于合约可以使用 type(xx) 来获取合约的类型信息. </p>
+</li>
+</ol>
+<ol>
+<li>固定长字节数组,以 bytes 加数字表示,如 bytes2 表示 两个字节长度的数组,数组范围为 1-32.默认是 1.<br> 动态长度字节数组分两种,bytes 和 string(不支持索引访问)</li>
+</ol>
+<h3 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h3><ol>
+<li><p>如果使用引用类型,必须明确数据存储在哪个位置.<br>   变量的储存位置有三种,memory 修饰的变量储存在内存中仅在函数运行期有效不能外部调用, storage 修饰的变量存储在区块链上只有合约存在就有效,calldata 指调用数据,用来保存函数参数,是一个只读位置.<br>   函数返回值默认是 memory,函数局部变量的默认数据是 storage,状态变量的默认数据是 storage.</p>
+</li>
+<li><p>数组截图在声明时指定长度,也可以动态调整.push()添加一个元素,返回对它的引用. 同理还有 pop 函数.<br>   bytes 和 string 也是数组.string 不能使用索引, bytes 等同于 byte[] 但 gas 消耗更低.可以使用 new 关键字创建内存数组,但不能改变其内存数组的大小.<br>   solidity 提供数组切片 x[start:end],仅仅可用于 calldata</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">uint[][<span class="number">5</span>] x = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line">x[<span class="number">0</span>] = <span class="number">6</span>; <span class="comment">// x 为[6,2,3,4,5]</span></span><br><span class="line">x.length = <span class="number">5</span>;</span><br><span class="line">uint[] y = [<span class="number">1</span>,<span class="number">2</span>] <span class="comment">// 动态长度</span></span><br><span class="line">xxxtype[] public xxxx; <span class="comment">// 自定义 xx 类型数组</span></span><br><span class="line">bytes memory b = <span class="keyword">new</span> bytes(<span class="number">9</span>)</span><br><span class="line">uint[<span class="number">3</span>][<span class="number">5</span>] x; <span class="comment">//与大多数编程语言相反,为 5 行 3 列.</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>结构体是自定义数据类型,可以是字符串整型等基础类型,也可以是数组映射结构体等复杂类型.可以使用关键字 struct 定义.<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义</span></span><br><span class="line">struct Bank&#123;</span><br><span class="line">	address owner;</span><br><span class="line">	uint balance;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 初始化方法一</span></span><br><span class="line">Bank b = Bank(&#123;</span><br><span class="line">	owner: msg.sender,</span><br><span class="line">	balance: <span class="number">5</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 方法 2</span></span><br><span class="line">Bank c = Bank(msg.sender, <span class="number">7</span>)</span><br><span class="line"><span class="comment">// 重新赋值</span></span><br><span class="line">c.balance = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">delete</span> b;<span class="comment">//重置 b 的所有值为 0,除了 mapping 类型.</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>映射/字典 定义方式为 mapping, key 值最好是基础类型.Solidity 没有提供其迭代的方法.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mapping(<span class="function"><span class="params">string</span> =&gt;</span> uint) public balances; <span class="comment">// public 会自动创建一个 getter 函数.</span></span><br><span class="line">balances[<span class="string">'charles'</span>] = <span class="number">1</span>;</span><br><span class="line">balances[<span class="string">'ada'</span>]; <span class="comment">// 没有设置 key 的返回 0</span></span><br><span class="line"><span class="keyword">delete</span> balances[<span class="string">"John"</span>]; <span class="comment">// delete 不会删除元素,只会重置其初始值.</span></span><br></pre></td></tr></table></figure>
+<p> delete 用来初始化类型的值,对映射无效.</p>
+</li>
+<li><p>枚举可用来创建一定数量的”常量值”够成的自定义数据类型,可以显式转为整型,但不能隐式转换.一般当做状态机使用.长度不能超过 256 位.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义状态机</span></span><br><span class="line"> enum State &#123;Created, Locked,Inactive&#125;;</span><br><span class="line"> <span class="comment">// 声明 state 变量</span></span><br><span class="line"> State public state;</span><br><span class="line"> <span class="comment">// 赋值</span></span><br><span class="line"> state = State.Created;</span><br><span class="line"> <span class="comment">// 显式转换</span></span><br><span class="line"> uint createdState = uint(State.Created);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>类型转换和类型推断<br> 隐式转换: int和 int,uint 和 uint 可以相互转换,但 int 和 uint 不能转换,整数类型可以转换为 bytes,但反过来不行,任何可以转换为 uint160 的变量都可以转换为 address 地址类型.<br> 显示转换: uint8(a)<br> 类型推断: var 会在第一次赋值时推断变量类型,不可以用于函数参数,使用时小心,有时候会推断出错误类型.</p>
+</li>
+</ol>
+<h3 id="单位和全局变量"><a href="#单位和全局变量" class="headerlink" title="单位和全局变量"></a>单位和全局变量</h3><ol>
+<li><p>货币单位<br> wei, gwei, ether,默认后缀是 wei. 1ether = 10 的 18 次方 wei.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> ether = <span class="number">10</span> ** <span class="number">18</span> wei;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>时间单位<br> seconds,minutes,hours,days,weeks 都可作为后缀,默认以 seconds 为单位.(years 因为闰年的原因已去除).<br> 这些单位不能直接用在变量后面,要用变量 乘 1seconds/其他单位 来使用.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uint a = <span class="number">1</span> * <span class="number">1</span> days; <span class="comment">// 值为 86400 秒</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>全局变量<br>solidity 提供的通用函数或变量.</p>
+</li>
+</ol>
+<ul>
+<li>block 区块信息</li>
+<li>msg 消息信息</li>
+<li>tx 交易信息</li>
+<li>abi 编码及解码函数</li>
+<li>错误处理 throw 抛出异常,require检查由输入和外部引起的错误,assert检查内部错误,revert终止运行回撤状态并提供一个解释性字符串</li>
+<li>数学密码学函数 addmod,mulmod,keccak256,sha256,repemd160,ecrecover</li>
+<li>address 地址成员,包含 balance 余额,code 代码,transfer,send,call,delegatecall,staticcall</li>
+<li>合约相关: this 表示当前合约,selfdestruct 销毁合约.</li>
+<li>类型信息: type(x) 检索类型信息.属性包含 name,runtimeCode 等等…</li>
+</ul>
+<h3 id="表达式和控制语句"><a href="#表达式和控制语句" class="headerlink" title="表达式和控制语句"></a>表达式和控制语句</h3><p>Solidity 支持 js 中大部分语句 if,else,while,do,for,break,continue,return, 三元表达式,不支持 switch 和 goto 语句.tryCatch语句只能用于外部函数调用和合约创建调用.<br>Solidity 没有 js 中的非 boolean 类型自动转换的特性.<br>使用循环时注意 gas 的数量,防止合约失败.在合约中优先使用循环而不是递归,EVM 的最大调用栈的深度是 1024.<br>solidity 内部允许使用元祖(tuple)类型.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">g</span>(<span class="params"></span>) <span class="title">public</span> </span>&#123;</span><br><span class="line">    <span class="comment">//基于返回的元组来声明变量并赋值</span></span><br><span class="line">    (uint x, bool b, uint y) = f();</span><br><span class="line">    <span class="comment">//交换两个值的通用窍门——但不适用于非值类型的存储 (storage) 变量。</span></span><br><span class="line">    (x, y) = (y, x);</span><br><span class="line">    <span class="comment">//元组的末尾元素可以省略（这也适用于变量声明）。</span></span><br><span class="line">    (index,,) = f(); <span class="comment">// 设置 index 为 7</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>solidity 作用域规则可以参考 javascript.</p>
+<h3 id="合约"><a href="#合约" class="headerlink" title="合约"></a>合约</h3><pre><code>合约类似于编程语言中的类,可以通过 new 关键字来创建一个新合约,在合约可以调用另一个合约的方法.调用另一个合约时会很自信一个 EVM 函数调用,这会切换执行时的上下文,这样前一个合约的状态变量就不能访问了.
+</code></pre><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">contract infoFeed&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line">contract Consumer&#123;</span><br><span class="line">	InfoFeed feed; <span class="comment">// 指向一个已经部署的合约;</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">setFeed</span>(<span class="params">address addr</span>)</span>&#123;</span><br><span class="line">		<span class="comment">// 传入部署合约的区块链地址</span></span><br><span class="line">		feed = Infofeed(addr) <span class="comment">// 显示进行类型转换,不会调用构造函数</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 创建合约实例</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">createNewFeed</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		feed = <span class="keyword">new</span> InfoFeed() <span class="comment">// 调用构造函数</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译器自动为所有 public 状态的变量创建 getter 函数.外部访问时被认作一个函数.<br>状态变量声明为 constant (常量)或者 immutable （不可变量）<br>合约之外的函数（也称为“自由函数”）始终具有隐式的 internal 可见性。 它们的代码包含在所有调用它们合约中，类似于内部库函数。</p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><pre><code>函数也是一种值类型,可以将函数传递给另外一个函数作为参数,可以再函数中返回一个函数.
+</code></pre><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义 ,可以由多个返回值</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">increment</span>(<span class="params">uint x</span>) <span class="title">returns</span> (<span class="params">uint a, uint b</span>) </span>&#123;</span><br><span class="line">	a = x+<span class="number">1</span>;</span><br><span class="line">	b = a*<span class="number">2</span>;</span><br><span class="line">	<span class="keyword">return</span> (a,b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>函数类型分为两类: 内部 internal 函数类型和外部 external 函数类型.如果函数不需要返回,可以省略 returns xx.一个函数默认是内部函数.
+函数有四种可见性,public(公开),private(私有,定义的合约内部访问),external(不能再合约内部调用),internal(只能从内部访问).在public函数中，solidity会立刻把函数数组参数拷贝到内存中，而external函数可以直接从calldata中读取数据。内存分配是昂贵的，直接从calldata中读取是便宜的.
+constructor 是构造函数,在创建合约时执行,并在内部初始化 代码 和状态变量.构造函数运行后将合约最终代码部署到区块链.
+View 视图函数: 减函数声明为 view 类型,这种情况下要保证不修改状态(包括修改状态,产生事件,创建合约,发送 eth,调用任何没有标记 view 和 pure 的函数,销毁合约等). Constant 之前是 view 的别名,0.5.0 移除.
+Pure 纯函数: 承诺不读取也不修改状态.访问 address 和 block 等其他信息都属于读取状态.纯函数能适应 revert()和 require()在发生错误是还原状态.
+一个合约最多有一个接收函数 receive(),声明为`receive() external payable {...}`不需要 function 关键字,也没有参数和返回值,必须用 external 和 payable 修饰.如果它不存在就会调用有 payable 的 fallback 回退函数.如果两个都没有就会在交易时抛出异常.
+函数修饰符: modifier(修改器) 用于在函数执行前检查某种前置条件是否满足
+</code></pre><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">modifier onlyOwner&#123;</span><br><span class="line">	<span class="built_in">require</span>(msg.sender == owner); <span class="comment">// 判断调用合约的是不是合约所有者</span></span><br><span class="line">	_;<span class="comment">// 下划线表示私有修改符的函数的方法体的替换位置</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>回退函数 fallback: 每个合约最多只有一个,这个函数无参数也无返回值.一般有两种情况对调用回退函数,一是调用合约时没有匹配到任何函数,二是给合约发送 eth 时,交易中没有附带任何其他数据,也会调用回退函数.新版本不再推荐,推荐使用 receive 函数.
+</code></pre><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">contract Test&#123;</span><br><span class="line">	fallback() external payable&#123;</span><br><span class="line">		<span class="keyword">throw</span>; <span class="comment">// 执行失败返回 eth 给发送者. payable 修饰符用来接收 eth</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>自毁函数: selfdestruct(address)用来摧毁合约并将 eth 转移到给定地址.当你发现合约有问题不想让其他人使用时就可以摧毁这个合约了.摧毁之后再有人发送eth 到这个地址就会消失.
+solidity 支持函数重载和函数重写 overriding.父合约标记为 virtual 函数可以再继承合约里重写.重写的函数要用 override 修饰.
+
+继承: solidity 合约可以通过 is 关键字实现从父合约中继承.
+</code></pre><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">contract A&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">contract B is A&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 多重继承</span></span><br><span class="line">contract C is A,B&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>接口:接口 interface 是 solidity 在版本 0.4.11 版本后引入的,接口所有函数都是抽象函数, 关键字 abstract定义抽象函数.
+合约中有的函数没有函数体只有函数定义的是抽象合约.
+
+库:库是一中不同类型的合约,没有存储,不拥有 eth.库中的代码可以被其他合约调用而不需要重新部署,这样可以节省大量 gas.库中没有可支付的函数(payable),没有 fallback 回退函数,
+库的调用通过 DELEGATECALL(委托调用,除此之外好友 call,staticcall都是低级的函数,破坏了 solidity 的类型安全性,谨慎使用) 实现,不切换上下文.
+
+Using for:using for 的声明方式是 using lib for a,意为库 lib 中所有函数默认接收 a 实例作为第一个参数.`using Balances for *`引入库 Balances 中的函数被附加在任意的类型上。
+</code></pre><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">library C&#123;</span><br><span class="line">	funtion a() returns (address)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">contract A&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) <span class="title">returns</span>(<span class="params">address</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> C.a(); <span class="comment">// 返回 A 合约的地址</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h3><pre><code>真实环境中我们需要发送交易(Transaction)来调用智能合约,我们无法立即获得合约的返回值,此时调用返回值只是该交易的 txid 或 tx hash 值.当事件真正发生时,合约将事件写入区块链时,前端才能进行响应.
+</code></pre><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">	<span class="comment">//定义事件</span></span><br><span class="line">event Sent(address,indexed <span class="keyword">from</span>...);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 触发事件</span></span><br><span class="line">emit Sent(address,...)</span><br><span class="line"></span><br><span class="line"><span class="comment">// js 调用事件</span></span><br><span class="line"><span class="keyword">var</span> ClientReceipt = web3.eth.contract(xx);</span><br><span class="line"><span class="keyword">var</span> event = ClientReceipt.Sent();</span><br><span class="line">event.watch(<span class="function"><span class="keyword">function</span>(<span class="params">error,result</span>)</span>&#123;...&#125;)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2020/04/11/solidity 区块链编程入门/" class="article-date">
+  <time datetime="2020-04-11T11:31:16.000Z" itemprop="datePublished">2020-04-11</time>
+</a>
+
+        </li>
+        
+          <li>
+            <span class="label">Category:</span>
+            
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/solidity-ETH/">solidity ETH</a>
+  </div>
+
+
+          </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solidity-ETH/">solidity ETH</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <a href="/2020/05/10/Chrome 插件开发指南/" id="article-nav-newer" class="article-nav-link-wrap newer">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Chrome 插件开发指南
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/18/认识以太坊/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">认识以太坊</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/valenzhou"><span class="fa fa-github-alt"></span></a></li>
+          
+            <li><a href="https://www.facebook.com/valen.zhou"><span class="fa fa-facebook"></span></a></li>
+          
+            <li><a href="https://twitter.com/valenzhou/"><span class="fa fa-twitter"></span></a></li>
+          
+            <li><a href="https://plus.google.com/"><span class="fa fa-google-plus"></span></a></li>
+          
+            <li><a href="https://www.google.com/"><span class="fa fa-globe"></span></a></li>
+          
+            <li><a href="/atom.xml"><span class="fa fa-rss"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>ipsum dolor sit amet, <strong>consectetur adipiscing elit.</strong> Fusce eget urna vitae velit <em>eleifend interdum at ac nisi. In nec ligula lacus. Cum sociis natoque</em> penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eu cursus erat, ut dapibus quam. Post</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>

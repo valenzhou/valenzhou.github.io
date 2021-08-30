@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>vim入门指南 | Mr.喵的网络日志</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="vim入门指南快捷操作- di&amp;quot; 删除本行&amp;quot;&amp;quot;内的文本 - cw 替换一个词 - yaw 复制当前词 - f和 t来查找当前行字符,`;`重复查找,`*`查找当前词,n 跳往下一个. - ctrl + d/u 向下/上 滚动半屏 - 分隔符 a/i 带空格/不带空格 ,例如 a(/i( ,一般 d 和 a 配合,c 和 i 配合, w/词 -&amp;gt; s/句子-&amp;gt">
+<meta name="keywords" content="VIM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vim入门指南">
+<meta property="og:url" content="http://yoursite.com/2019/05/09/vim入门指南/index.html">
+<meta property="og:site_name" content="Mr.喵的网络日志">
+<meta property="og:description" content="vim入门指南快捷操作- di&amp;quot; 删除本行&amp;quot;&amp;quot;内的文本 - cw 替换一个词 - yaw 复制当前词 - f和 t来查找当前行字符,`;`重复查找,`*`查找当前词,n 跳往下一个. - ctrl + d/u 向下/上 滚动半屏 - 分隔符 a/i 带空格/不带空格 ,例如 a(/i( ,一般 d 和 a 配合,c 和 i 配合, w/词 -&amp;gt; s/句子-&amp;gt">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2021-08-30T11:40:09.864Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vim入门指南">
+<meta name="twitter:description" content="vim入门指南快捷操作- di&amp;quot; 删除本行&amp;quot;&amp;quot;内的文本 - cw 替换一个词 - yaw 复制当前词 - f和 t来查找当前行字符,`;`重复查找,`*`查找当前词,n 跳往下一个. - ctrl + d/u 向下/上 滚动半屏 - 分隔符 a/i 带空格/不带空格 ,例如 a(/i( ,一般 d 和 a 配合,c 和 i 配合, w/词 -&amp;gt; s/句子-&amp;gt">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body>
+    
+  
+      <div id="container" class="container">
+        <article id="post-vim入门指南" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav id="main-nav" class="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/categories">Categories</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      vim入门指南
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h1 id="vim入门指南"><a href="#vim入门指南" class="headerlink" title="vim入门指南"></a>vim入门指南</h1><h3 id="快捷操作"><a href="#快捷操作" class="headerlink" title="快捷操作"></a>快捷操作</h3><pre><code>- di&quot; 删除本行&quot;&quot;内的文本
+- cw 替换一个词
+- yaw 复制当前词
+- f和 t来查找当前行字符,`;`重复查找,`*`查找当前词,n 跳往下一个.
+- ctrl + d/u 向下/上 滚动半屏
+- 分隔符 a/i 带空格/不带空格 ,例如 a(/i( ,一般 d 和 a 配合,c 和 i 配合, w/词 -&gt; s/句子-&gt;p/段落.
+- u 撤销修改,U 撤销所有修改(undo), 撤销最后一次修改 ctrl + R
+- i/I,a/A,o/O 插入
+- mm 命令可以标记一个位置,然后~m回到标记点
+- 全局替换`:%s/{pattern}/{string}/{flags}`
+- 宏: q a-z 命名, 操作 q 离开完成.调用 @ a-z 具体的宏.
+</code></pre><h4 id="字符跳动"><a href="#字符跳动" class="headerlink" title="字符跳动"></a>字符跳动</h4><ul>
+<li>h,j,k,l 左下上右</li>
+</ul>
+<h4 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h4><p>所有命令都需要在normal模式下使用</p>
+<ul>
+<li>i切换到insert模式，按esc回到normal模式</li>
+<li>v 可视化模式,按v或V进入可视模式<br>v可以进入面向字符的可视模式,V 是针对行的可视模式.ctrl +v可以进入针对列的可视模式.可视模式下按 o 可以调整选择区边界.</li>
+<li>:wqa! w为保存，q为离开，！为强制执行 ,a表示all所有</li>
+</ul>
+<h4 id="行内移动"><a href="#行内移动" class="headerlink" title="行内移动"></a>行内移动</h4><ul>
+<li>0 到行头</li>
+<li>^ 第一个不是空的位置</li>
+<li>$ 行尾</li>
+<li><p>g_ 最后一个不是空的位置</p>
+</li>
+<li><p>w 下一个单词开头</p>
+</li>
+<li>b 当前或上一个单词开头</li>
+<li><p>wi/bi 在开头前插入</p>
+</li>
+<li><p>e 当前或下一个单词结尾 (end)</p>
+</li>
+<li>ge 上一个单词结尾</li>
+<li><p>ea,gea 在结尾后插入</p>
+</li>
+<li><p>fa 下一个字符为a的位置</p>
+</li>
+<li>ta 字符a前的第一个字符</li>
+</ul>
+<h4 id="页移动"><a href="#页移动" class="headerlink" title="页移动"></a>页移动</h4><ul>
+<li>H 跳转到当前屏幕第一行 (head)</li>
+<li>M 当前屏幕中间一行  (middle)</li>
+<li><p>L 最后一行        (last)</p>
+</li>
+<li><p>2H 移动到当前屏幕第2行</p>
+</li>
+<li>3L 移动到当前屏幕倒数第三行</li>
+<li>ctrl + f  前移一页  (forward)</li>
+<li>ctrl + b 后移一页   (back)</li>
+<li>ctrl + d 往下滚动半屏  (down)</li>
+<li><p>ctrl + u 往上滚动半屏  </p>
+</li>
+<li><p>gg 调到首行  相当于:1</p>
+</li>
+<li>G 调到尾行</li>
+<li>nG 调到n行  相当于:n</li>
+<li>% 调到另一边括号 ({[]})</li>
+</ul>
+<h4 id="配合查找字符方式移动"><a href="#配合查找字符方式移动" class="headerlink" title="配合查找字符方式移动"></a>配合查找字符方式移动</h4><ul>
+<li>fa 正向移动到第一个字符a处, ta 正向移动到下一个a字符之前</li>
+<li>Fa 逆向移动到第一个字符a处, Ta 逆向移动到下一个a字符之前</li>
+<li><code>;</code>可以重复查找上次 f 命令查找的字符,不用再重复使用 f 命令.如果按了太多次,可以按<code>,</code>回到上次位置.</li>
+<li><code>*</code>命令可以查找光标当前所在词,按 n 跳往下一个.</li>
+<li>f/t 只能在行内查找且查找时只能查找一个字符,而不是单词.查找时尽量选择频率比较低的字符从而快速移动到目标处.</li>
+</ul>
+<h4 id="非相邻单词或字符间移动"><a href="#非相邻单词或字符间移动" class="headerlink" title="非相邻单词或字符间移动"></a>非相邻单词或字符间移动</h4><ul>
+<li>8w 正向移动到相隔8个单词的首字符</li>
+<li>4Fa 逆向移动到第4个a字符</li>
+</ul>
+<h4 id="搜索匹配"><a href="#搜索匹配" class="headerlink" title="搜索匹配"></a>搜索匹配</h4><ul>
+<li>/text 向后搜索 </li>
+<li>? text 向前搜索</li>
+<li>:g/word 全局搜索</li>
+<li>n 搜索下一个同样的内容</li>
+<li><p>N 搜索上一个同样的内容</p>
+</li>
+<li><p>查找 :{作用范围}s/{目标}/{替换}/{替换标志}</p>
+</li>
+<li><p>:%s/old/new/gc 全局替换</p>
+</li>
+<li><p>作用范围 当前行:s,全文:%s,选区在visual 选择区域后输入:后 vim 自动补全:’&lt;,&gt;’s 或手动指定:4,6s  或.,+2s 接下来 2 行</p>
+</li>
+<li><p>替换标志 </p>
+<ul>
+<li>i 表示大小写不敏感,I 表示敏感,等于与模式中的\c<br>  :%s/foo/bar/i  === :%s/foo\c/bar</li>
+<li>g 全局替换</li>
+<li>c 表示需要确认,每次替换系统按键确认 y 替换/n 不替换/a 替换所有/q 退出查找模式/ l 替换当前位置并退出</li>
+</ul>
+</li>
+<li><p>在normal模式下按下*即可查找光标所在单词（word）</p>
+</li>
+<li>\c表示大小写不敏感查找，\C表示大小写敏感查找</li>
+<li><em># 匹配当前光标所在的单词 </em>是下一个 #是上一个</li>
+<li>光标移动可以与其他命令联动，比如 0y$ 表示从行首拷贝到最后一个字符</li>
+<li>拷贝不一定要用y，还可以使用d(删除)，v（可视化选择），gU(变大写),gu(变小写)</li>
+</ul>
+<h4 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h4><ul>
+<li>i在光标前插入(insert),I 在当前行开头插入</li>
+<li>a在光标后插入(append),A在当前行结尾进行插入,相当于执行了<code>$a</code>操作</li>
+<li>o在当前行后插入新行, O在当前行前插入新行</li>
+<li>ea  在当前行结尾插入(end append)</li>
+<li>cw 当前光标到单词结尾清空并插入</li>
+<li>在插入模式删除除了使用退格键,还可以使用 ctrl+w 删除前一个单词或使用 ctrl + u 删除至行首.</li>
+</ul>
+<h4 id="替换和删除"><a href="#替换和删除" class="headerlink" title="替换和删除"></a>替换和删除</h4><ul>
+<li>r 替换一个字符 replace,R 可以替换多个字母.</li>
+<li>cc 替换一行</li>
+<li>cw 替换一个 word</li>
+<li>c$ 替换到行尾</li>
+<li>s 修改一个字符</li>
+<li><p>S 修改一整行</p>
+</li>
+<li><p>x 删除当前光标所在的一个字符</p>
+</li>
+<li>dl 删除当前字符  === x</li>
+<li>dw 删除到下一个单词开头</li>
+<li>d0 删除至行首</li>
+<li>dd 删除当前行</li>
+<li>dj 删除上一行</li>
+<li>dk 删除下一行</li>
+<li>gg dG 删除全部内容</li>
+<li>:1,10d 删除1-10行</li>
+<li>:11,$d 删除11行及以后所有行<br>删除的内容存到剪贴板.</li>
+</ul>
+<h4 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h4><p>d,c,y等操作符加 一个动作命令组成一次操作.例如 daw.<br>    操作符有</p>
+<pre><code>- c 修改 (change)
+- d 删除 (delete)
+- y 复制, (yank)
+- p 粘贴 (paste/put)
+- g~ 反转大小写
+- gu 转换为小写
+- gU 转换为大写
+-  `&gt;` 增加缩进
+-  `&lt;` 减少缩进
+- `=` 自动缩进
+</code></pre><h4 id="复制粘贴"><a href="#复制粘贴" class="headerlink" title="复制粘贴"></a>复制粘贴</h4><ul>
+<li>yy 拷贝当前行(yank)</li>
+<li>按v或V进入可视模式,然后上下左右选择,再按y即可复制,按d即可剪贴</li>
+<li>p 粘贴到下一行或右侧</li>
+<li>P 粘贴至上一行或左侧</li>
+<li>调换文本行可以使用 ddp(先删除当前行再粘贴),同理复制当前行 yyp</li>
+<li>交换两个词. 先用 d 删除一个词,然后 mm 标记,在用 v 选中另一个词按 p替换,然后 ~m 回到标记位置再按 p 即可完成替换.</li>
+<li>针对字符的复制或删除操作如 x,diw等将创建面向字符的寄存器,粘贴时会放在光标后.针对行的复制删除操作如 dd,yy 或 dap 会创建针对行的寄存器,粘贴时会放在当前行的下一行.</li>
+</ul>
+<h4 id="撤销和重复"><a href="#撤销和重复" class="headerlink" title="撤销和重复"></a>撤销和重复</h4><ul>
+<li>u撤销最近一次修改(undo)</li>
+<li>.命令可以再普通模式下重复上次修改,如果想要在命令模式下重复上次命令可以用<code>@:</code></li>
+<li>U撤销所有</li>
+<li>ctrl + r 取消最后一次的撤销</li>
+</ul>
+<h4 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h4><ul>
+<li>:e<path to="" file=""></path> 打开一个文件</li>
+<li>:saveas<path to="" file=""></path> 文件另存为</li>
+<li>:x 或 zz 或:wq 保存并推出</li>
+<li>:bn 切换到下一个文件（n表示next，b表示切换blocked-out）</li>
+<li>:bp 切换到上一个文件（p表示prev）</li>
+<li>:n 切换到下一个</li>
+</ul>
+<h4 id="命令行模式技巧"><a href="#命令行模式技巧" class="headerlink" title="命令行模式技巧"></a>命令行模式技巧</h4><ul>
+<li>DTc 删除光标的c之间的所有字符</li>
+<li>Rc 将光标的字符替换为c</li>
+<li>nDD 删除n行数据</li>
+<li>nYY 复制n行数据</li>
+<li>nX 删除n个字符</li>
+</ul>
+<h4 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h4><p>按:进入命令模式.</p>
+<ul>
+<li>:n 光标移动到多少行</li>
+<li>:1,5w file 将第一行至第五行写入文件</li>
+<li>:.,$w file 当前行至结束写入文件</li>
+<li>:w 保存</li>
+<li>:wq 保存退出</li>
+<li>:q 退出</li>
+<li>:q! 强制退出</li>
+<li>:/str/ 正向搜索,光标移动到下一个结果</li>
+<li>:?str? 逆向搜索</li>
+<li>正则:</li>
+<li>:/^xxx/</li>
+<li>:/xxx$/</li>
+<li>:s实现替换</li>
+<li>delete 删除</li>
+<li>yank 复制</li>
+<li>put 粘贴</li>
+<li>copy 拷贝</li>
+<li>move 移动</li>
+<li>join 连接</li>
+<li>normal 可以执行普通模式下的命令</li>
+<li>substitute/{pattern}/{string}/{flags} 在范围内出现{pattern}的地方替换为{string}</li>
+<li>x,y 表示 x-y 行,<code>.</code>表示当前行,<code>%</code>表示当前文件所有行</li>
+<li>使用<code>:t</code>和<code>:m</code>命令复制和移动行.其中<code>:t</code>是 copy 命令的简写(可以理解为copyTo),<code>:m</code>是 move 命令的简写</li>
+</ul>
+<h3 id="vim-实用技巧"><a href="#vim-实用技巧" class="headerlink" title="vim 实用技巧"></a>vim 实用技巧</h3><ul>
+<li><p>分隔符文本对象.<br>  vim 的文本对象由两个字符组成,第一个字符是 i/a, i 会选择分隔符内部文本,a 会选择包括分隔符在内的整个文本.可以理解为 inside/all. 第二个字符是分隔符如<code>)]}&gt;&#39;&quot;</code>,t 表示标签</p>
+<ul>
+<li>a)/i)</li>
+<li>a”/i”</li>
+<li>at/it<br>文本对象前可使用 <code>d/c/y/g~/gu/gU/&gt;/&lt;/=</code> 等操作符</li>
+</ul>
+</li>
+<li><p>范围文本对象</p>
+<ul>
+<li>aw 当前单词及一个空格/iw 当前单词</li>
+<li>as 当前句子及一个空格/is 当前句子</li>
+<li>ap 当前段落及一个空行/ ip 当前段落<br>一般 d 和 a 配合, c 和 i 配合.</li>
+</ul>
+</li>
+<li><p>标记位置<br>  mm 命令可以标记一个位置,然后~m回到标记点 可以回到上次修改位置.<br>  比如我们想要修改一对大括号,可以先用%匹配大括号,这时 vim 会自动为发生跳转的地方设置一个标记,在我们使用 r]修改后大括号后,按 ~~ 调回到前大括号,然后 r[ 修改完成.</p>
+</li>
+<li><p>自定义宏</p>
+<ul>
+<li>创建宏 q a,操作,q 结束. 其中 a 为命名的寄存器.</li>
+<li>查看宏 :reg a</li>
+<li>调用宏 @a, @@可以回放上次调用的宏.</li>
+<li>当前行多次调用宏. 3@a ,调用三次宏 a</li>
+<li>多行调用宏, 按 v 进入可视模式,选中执行区间,<code>:normal @a</code>就可以在每一行执行宏了.</li>
+</ul>
+</li>
+<li><p>用迭代求值的方式给列表编号</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:<span class="built_in">let</span> i = 1  <span class="comment">#定义变量</span></span><br><span class="line">qa  <span class="comment"># 定义宏和寄存器</span></span><br><span class="line">I ctrl+r =1 ctrl+R ) esc <span class="comment"># 对行进行操作</span></span><br><span class="line">:<span class="built_in">let</span> i += 1 <span class="comment"># 变量递增</span></span><br><span class="line">q <span class="comment"># 完成录制</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>搜索引擎<br><code>\v</code>表示模式开关,可以让搜索时不用正则写过多的转义字符,比如要匹配 css 中的颜色可以使用<code>/\v #[0-9a-fA-F]{6}|[0-9a-fA-F]{3}</code><br><code>\V</code>表示原义开关,按照字符进行匹配,即便字符中有像.这样的符号也会按照原义查找.</p>
+</li>
+<li><p>substitude命令<br>该命令可以提供查找模式以及替换字符串,还可以指定执行的范围.具体语法<code>:s/{pattern}/{string}/{flags}</code> 在范围内出现{pattern}的地方替换为{string},如果想要全局配置要使用<code>:%s/xxx/xxx/g</code><br>flags 为标志位,其中 g 是全局范围,n 为统计个数而不执行替换,c 让我们确认每一次修改.e 可以屏蔽错误提示.i 表示大小写不敏感,I 表示大小写敏感.</p>
+</li>
+</ul>
+<h4 id="分屏"><a href="#分屏" class="headerlink" title="分屏"></a>分屏</h4><ul>
+<li>:vsp 左右分屏</li>
+<li>:sp 上下分屏</li>
+<li>:tabnew 新建标</li>
+</ul>
+<h3 id="z和fzf脚本"><a href="#z和fzf脚本" class="headerlink" title="z和fzf脚本"></a>z和fzf脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">j</span></span>() &#123;</span><br><span class="line">     <span class="keyword">if</span> [[ -z <span class="string">"$*"</span> ]]; <span class="keyword">then</span></span><br><span class="line">         <span class="built_in">cd</span> <span class="string">"<span class="variable">$(_z -l 2&gt;&amp;1 | fzf +s | sed 's/^[0-9,.]* *//')</span>"</span></span><br><span class="line">     <span class="keyword">else</span></span><br><span class="line">         _last_z_args=<span class="string">"<span class="variable">$@</span>"</span></span><br><span class="line">         _z <span class="string">"<span class="variable">$@</span>"</span></span><br><span class="line">     <span class="keyword">fi</span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="title">jj</span></span>() &#123;</span><br><span class="line">     <span class="built_in">cd</span> <span class="string">"<span class="variable">$(_z -l 2&gt;&amp;1 | sed 's/^[0-9,.]* *//' | fzf -q $_last_z_args)</span>"</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2019/05/09/vim入门指南/" class="article-date">
+  <time datetime="2019-05-09T11:24:13.000Z" itemprop="datePublished">2019-05-09</time>
+</a>
+
+        </li>
+        
+          <li>
+            <span class="label">Category:</span>
+            
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/VIM/">VIM</a>
+  </div>
+
+
+          </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VIM/">VIM</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <a href="/2019/07/30/Docker使用总结/" id="article-nav-newer" class="article-nav-link-wrap newer">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Docker使用总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/01/11/入门shell编程/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">入门shell编程</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/valenzhou"><span class="fa fa-github-alt"></span></a></li>
+          
+            <li><a href="https://www.facebook.com/valen.zhou"><span class="fa fa-facebook"></span></a></li>
+          
+            <li><a href="https://twitter.com/valenzhou/"><span class="fa fa-twitter"></span></a></li>
+          
+            <li><a href="https://plus.google.com/"><span class="fa fa-google-plus"></span></a></li>
+          
+            <li><a href="https://www.google.com/"><span class="fa fa-globe"></span></a></li>
+          
+            <li><a href="/atom.xml"><span class="fa fa-rss"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>ipsum dolor sit amet, <strong>consectetur adipiscing elit.</strong> Fusce eget urna vitae velit <em>eleifend interdum at ac nisi. In nec ligula lacus. Cum sociis natoque</em> penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eu cursus erat, ut dapibus quam. Post</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>

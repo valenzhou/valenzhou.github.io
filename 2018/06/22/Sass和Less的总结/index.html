@@ -64,7 +64,7 @@
     
     <div class="article-entry typo" itemprop="articleBody">
       
-        <h3 id="Sass的安装-及编译"><a href="#Sass的安装-及编译" class="headerlink" title="Sass的安装 及编译"></a>Sass的安装 及编译</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 安装</span><br><span class="line">brew install ruby</span><br><span class="line">brew install sass</span><br><span class="line"><span class="meta">#</span> 编译(sass提供4种编译风格)</span><br><span class="line"><span class="meta">#</span> nested: 嵌套缩进,默认值</span><br><span class="line"><span class="meta">#</span> expanded: 没有缩进的扩展的 css 代码</span><br><span class="line"><span class="meta">#</span> compact: 简洁格式的 css 代码</span><br><span class="line"><span class="meta">#</span> compressed: 压缩后的 css 代码</span><br><span class="line">sass --style compressed test.sass  test.css</span><br><span class="line"><span class="meta">#</span> 监控某个文件,一旦变动,自动生成编译后的版本</span><br><span class="line">sass --watch input.scss:output.css</span><br><span class="line"><span class="meta">#</span> 监控某个文件夹</span><br><span class="line">sass --watch app/sass:publc/stylesheets</span><br></pre></td></tr></table></figure>
+        <h3 id="Sass的安装-及编译"><a href="#Sass的安装-及编译" class="headerlink" title="Sass的安装 及编译"></a>Sass的安装 及编译</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装</span></span><br><span class="line">brew install ruby</span><br><span class="line">brew install sass</span><br><span class="line"><span class="meta">#</span><span class="bash"> 编译(sass提供4种编译风格)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> nested: 嵌套缩进,默认值</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> expanded: 没有缩进的扩展的 css 代码</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> compact: 简洁格式的 css 代码</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> compressed: 压缩后的 css 代码</span></span><br><span class="line">sass --style compressed test.sass  test.css</span><br><span class="line"><span class="meta">#</span><span class="bash"> 监控某个文件,一旦变动,自动生成编译后的版本</span></span><br><span class="line">sass --watch input.scss:output.css</span><br><span class="line"><span class="meta">#</span><span class="bash"> 监控某个文件夹</span></span><br><span class="line">sass --watch app/sass:publc/stylesheets</span><br></pre></td></tr></table></figure>
 <h3 id="Sass-的使用"><a href="#Sass-的使用" class="headerlink" title="Sass 的使用"></a>Sass 的使用</h3><ol>
 <li><p>使用变量</p>
 <p>sass 使用<code>$</code>符号来标识变量,因为它不会导致现存和未来的 css 语法冲突,且深受程序员喜爱.</p>
@@ -177,7 +177,7 @@
 </ol>
 </li>
 </ol>
-<h3 id="Less-的安装及编译"><a href="#Less-的安装及编译" class="headerlink" title="Less 的安装及编译"></a>Less 的安装及编译</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 通过 node 环境全局安装 less</span><br><span class="line">npm install -g less</span><br><span class="line"><span class="meta">#</span> 编译 less 文件</span><br><span class="line">lessc styles.less styles.css</span><br></pre></td></tr></table></figure>
+<h3 id="Less-的安装及编译"><a href="#Less-的安装及编译" class="headerlink" title="Less 的安装及编译"></a>Less 的安装及编译</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 通过 node 环境全局安装 less</span></span><br><span class="line">npm install -g less</span><br><span class="line"><span class="meta">#</span><span class="bash"> 编译 less 文件</span></span><br><span class="line">lessc styles.less styles.css</span><br></pre></td></tr></table></figure>
 <h3 id="Less-的使用"><a href="#Less-的使用" class="headerlink" title="Less 的使用"></a>Less 的使用</h3><p>​    和 Sass一样,Less 作为一种 css 扩展,它同样兼容 css, 且学习成本比 Sass 要小一些,这使得学习 Less 更轻松.</p>
 <ol>
 <li><p>变量</p>
@@ -273,12 +273,19 @@
     
 <nav id="article-nav" class="article-nav">
   
-    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+    <a href="/2018/07/14/关于 JavaScript 隐式转换的一道题/" id="article-nav-newer" class="article-nav-link-wrap newer">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          关于 JavaScript 隐式转换的一道题
+        
+      </div>
+    </a>
   
   
-    <a href="/2018/04/12/CSS世界-读书笔记/" id="article-nav-older" class="article-nav-link-wrap older">
+    <a href="/2018/05/03/浅谈 requestAnimationFrame 请求动画帧/" id="article-nav-older" class="article-nav-link-wrap older">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">&lt;CSS世界&gt;读书笔记</div>
+      <div class="article-nav-title">浅谈 requestAnimationFrame 请求动画帧</div>
     </a>
   
 </nav>
