@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>Truffle 框架开发区块链智能合约 | Mr.喵的网络日志</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Truffle 框架开发区块链智能合约Truffle是针对基于以太坊的Solidity语言的一套开发框架。本身基于Javascript。是基于 node.js 和 web3.js 的框架进行合约的编译,发布和调用.如果熟悉 node 开发,可以直接使用 web3.js 进行开发.如果擅长 java 语言,可以使用 web3j 开发. 安装开发及测试中需要安装Ethereum客户端，以支持JSON">
+<meta name="keywords" content="Truffle DAPP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Truffle 框架开发区块链智能合约">
+<meta property="og:url" content="http://yoursite.com/2020/07/07/Truffle 框架开发区块链智能合约/index.html">
+<meta property="og:site_name" content="Mr.喵的网络日志">
+<meta property="og:description" content="Truffle 框架开发区块链智能合约Truffle是针对基于以太坊的Solidity语言的一套开发框架。本身基于Javascript。是基于 node.js 和 web3.js 的框架进行合约的编译,发布和调用.如果熟悉 node 开发,可以直接使用 web3.js 进行开发.如果擅长 java 语言,可以使用 web3j 开发. 安装开发及测试中需要安装Ethereum客户端，以支持JSON">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2021-08-30T11:34:54.626Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Truffle 框架开发区块链智能合约">
+<meta name="twitter:description" content="Truffle 框架开发区块链智能合约Truffle是针对基于以太坊的Solidity语言的一套开发框架。本身基于Javascript。是基于 node.js 和 web3.js 的框架进行合约的编译,发布和调用.如果熟悉 node 开发,可以直接使用 web3.js 进行开发.如果擅长 java 语言,可以使用 web3j 开发. 安装开发及测试中需要安装Ethereum客户端，以支持JSON">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body>
+    
+  
+      <div id="container" class="container">
+        <article id="post-Truffle 框架开发区块链智能合约" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav id="main-nav" class="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/categories">Categories</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Truffle 框架开发区块链智能合约
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h1 id="Truffle-框架开发区块链智能合约"><a href="#Truffle-框架开发区块链智能合约" class="headerlink" title="Truffle 框架开发区块链智能合约"></a>Truffle 框架开发区块链智能合约</h1><p>Truffle是针对基于以太坊的Solidity语言的一套开发框架。本身基于Javascript。是基于 node.js 和 web3.js 的框架进行合约的编译,发布和调用.如果熟悉 node 开发,可以直接使用 web3.js 进行开发.如果擅长 java 语言,可以使用 web3j 开发.</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>开发及测试中需要安装Ethereum客户端，以支持JSON RPC API调用开发环境，推荐使用EthereumJS TestRPC。<br>如果使用 vscode 编辑器还可以安装 solidity 插件.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g truffle</span><br><span class="line">npm: npm install Web3</span><br><span class="line">npm install -g ganache-cli <span class="comment"># ethereumJs TestRPC</span></span><br></pre></td></tr></table></figure></p>
+<p>以太坊有很多客户端,基于 Go 语言开发的以太坊客户端 Geth 提供了 js 的运行环境可以基于 console 和 script.<br>而 EthereumJS TestRPC 是一个完整运行在内存中的区块链 可以再开发设备上适时返回,快速验证.等测试完成后在使用真实客户端发布.</p>
+<h3 id="EthereumJS-TestRPC"><a href="#EthereumJS-TestRPC" class="headerlink" title="EthereumJS TestRPC"></a>EthereumJS TestRPC</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g ethereumjs-testrpc</span><br><span class="line">testrpc <span class="comment"># 启动</span></span><br></pre></td></tr></table></figure>
+<h3 id="搭建私有链"><a href="#搭建私有链" class="headerlink" title="搭建私有链"></a>搭建私有链</h3><p>编写创世区块配置文件,然后执行初始化操作,完成后就可以启动私有链了.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">touch geth/gensis.json <span class="comment"># 配置文件</span></span><br><span class="line">mkdir db</span><br><span class="line">geth --datadir <span class="string">"./db"</span> init gensis.json <span class="comment"># 执行初始化命令</span></span><br><span class="line">geth --datadir <span class="string">"./db"</span> --rpc --rpcaddr=0.0.0.0 --rpcport 8545 <span class="comment"># 启动</span></span><br><span class="line">geth --datadir <span class="string">"./db"</span> attach <span class="comment"># 进入 js 控制台</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">truffle init</span><br></pre></td></tr></table></figure>
+<p>初始化之后会出现几个目录:</p>
+<p>test 用来测试应用和合约文件.</p>
+<p>truffle.js 是 truffle 的配置文件.</p>
+<h3 id="contract-意为合同"><a href="#contract-意为合同" class="headerlink" title="contract(意为合同)"></a>contract(意为合同)</h3><p>contract 是默认合约文件存放的地址.合约后缀是.sol表示 solidity,执行 <code>truffle compile --compile-all</code>编译合约.文件名和代码中的合约名要一致,区分大小写.通过 import 来什么依赖,会安装正确顺序来依次编译和关联库.编译输出在 build/contracts 文件中.</p>
+<h3 id="migrations-意为迁移"><a href="#migrations-意为迁移" class="headerlink" title="migrations(意为迁移)"></a>migrations(意为迁移)</h3><p>migrations存放发布脚本的地址.移植是由一些 js 文件协助发布到以太坊网络.主要目的是用来缓存你的发布任务,当你的工程发生了一些重要改变,你将创建新的移植脚本来讲这些变化移植到区块链上.之前运行移植的记录历史会通过一个特殊的 migrations 来记录到链上.<br><code>truffle migrate</code>命令会很自信所有该目录下的移植脚本.文件名以数字开头描述结尾比如<code>1_initial_migration.js</code>,deployer 是部署器,你可以按照一定顺序发布任务,会按照从上到下依次执行.或使用 promise 来做出一个队列.,要实现不同条件的不同部署,可以给脚本添加第二个参数 network.<br>部署器有很多函数,deploy 函数来发布指定合约或合约数组,如果合约依赖某个库应该先部署这个依赖库.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ZhouCoin = artifacts.require(<span class="string">"ZhouCoin"</span>); <span class="comment">// 类似于 node 中的  node 中的 commonJS</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">deployer</span>)</span>&#123;  </span><br><span class="line">  deployer.deploy(ZhouCoin)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>link 函数用来连接一个已经发布的库或合约.<br>then 函数是 promise 语法糖.<br>exec 函数来执行外部脚本.</p>
+<h3 id="构建应用"><a href="#构建应用" class="headerlink" title="构建应用"></a>构建应用</h3><p>app 目录是文件运行默认目录.truffle 默认构建有一些特性,在浏览器内自动初始化应用包括引入编译合约,部署合约,配置以太坊客户端信息.<br>包含常见的依赖如 web3 和 ether Pudding,内置 es6 和 jsx, sass 支持, uglifyjs 支持.<br>app</p>
+<pre><code>- javascripts / app.js
+- stylesheets / app.css
+- images
+- index.html
+</code></pre><p>然后在配置文件中配置<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">"build"</span>:&#123;</span><br><span class="line">		<span class="string">"index.html"</span>: <span class="string">"index.html"</span>,</span><br><span class="line">		<span class="string">"app.js"</span>: [</span><br><span class="line">			<span class="string">"javascripts/app.js"</span></span><br><span class="line">		],</span><br><span class="line">		<span class="string">"app.css"</span>: [</span><br><span class="line">			<span class="string">"stylesheets/app.scss"</span></span><br><span class="line">		],</span><br><span class="line">		<span class="string">"images/"</span>: <span class="string">"images/"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后<code>truffle build</code> 命令来创建前端工程.需要注意当前不支持 import 和 require,不能使用 webpack 和 commonJS 等工具来管理依赖.</p>
+<h3 id="合约交互"><a href="#合约交互" class="headerlink" title="合约交互"></a>合约交互</h3><p>以太坊网络把数据的读写做了区分,写数据被称为 交易 Transaction, 读数据被称为 调用 Call.</p>
+<p>交易:<br>    交易的接收地址如果是 合约地址会触发智能合约的函数运行,需要花费 gas.交易需要时间,函数执行后并不能立刻得到执行结果,大多数情况下很自信交易不会返回值,而是返回一个交易的 ID.</p>
+<p>调用:<br>    调用可以再网络上执行代码,但不改变数据(也许仅仅是临时变量被更改).调用执行是免费的,典型行为就是读取数据,通过调用执行合约函数,你会立即得要结果.不花费 gas 也不改变网络化妆,立即执行且有返回结果.</p>
+<p>接口(abstract)<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"ConvertLib.sol"</span>;</span><br><span class="line"></span><br><span class="line">contract MetaCoin &#123;</span><br><span class="line">  mapping (<span class="function"><span class="params">address</span> =&gt;</span> uint) balances;</span><br><span class="line"></span><br><span class="line">    event Transfer(address indexed _from, address indexed _to, uint256 _value);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">MetaCoin</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        balances[tx.origin] = <span class="number">10000</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">sendCoin</span>(<span class="params">address receiver, uint amount</span>) <span class="title">returns</span>(<span class="params">bool sufficient</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (balances[msg.sender] &lt; amount) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        balances[msg.sender] -= amount;</span><br><span class="line">        balances[receiver] += amount;</span><br><span class="line">        Transfer(msg.sender, receiver, amount);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getBalanceInEth</span>(<span class="params">address addr</span>) <span class="title">returns</span>(<span class="params">uint</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ConvertLib.convert(getBalance(addr),<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">getBalance</span>(<span class="params">address addr</span>) <span class="title">returns</span>(<span class="params">uint</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> balances[addr];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>合约有三个方法和一个构造方法.三个方法都可以执行交易和调用.其中只有 sendCoin 函数对网络造成了更改,所以它作为一个交易来执行.getBanance 函数是一个典型的调用函数,从网路中读取数据.<br>合约可以触发事件,事件与 web3 一样.合约接口都有一个 deployed()方法,表示部署到网络合约对应的抽象接口实例.或者通过 at(‘0x..’) 由地址得要接口实例.new()函数用来部署一个全新的合约到网络中,这是一个交易会改变网络状态.</p>
+<h3 id="测试合约"><a href="#测试合约" class="headerlink" title="测试合约"></a>测试合约</h3><p>truffle 使用 mocha 测试框架来做自动化测试,使用 Chai 来做断言.Truffle 只会运行js,es,es6,jsx 结尾的测试文件.<br>命令<code>truffle test xx.js</code>来测试某文件.</p>
+<h3 id="控制台"><a href="#控制台" class="headerlink" title="控制台"></a>控制台</h3><p>在测试时与合约交互是很频繁的,Truffle 提供了一个交互式控制台可以用更简单的方式来和合约交互.<code>truffle console</code>来启动控制台,会自动连接到一个运行中的以太坊客户端,控制台支持 truffle 命令,<code>migrate --reset</code> 与外部执行<code>truffle migrate --reset</code>效果是一样的.</p>
+<h3 id="外部脚本"><a href="#外部脚本" class="headerlink" title="外部脚本"></a>外部脚本</h3><p>你也行会经常使用外部脚本与你的合约进行交互,Truffle 提供了一个简单的方式进行这个<code>truffle exec xx.js</code>,为了外部脚本执行正常,truffle 需要他们能通过 js 的模块方式导出一个函数,且有一个回调函数作为参数.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>)</span>&#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="工作流"><a href="#工作流" class="headerlink" title="工作流"></a>工作流</h3><p>truffle 提供<code>truffle watch</code>和<code>truffle serve</code>命令,一个是用作修改后重构合约,一个用做修改后重编译部署构建.</p>
+<h3 id="truffle-js-配置文件"><a href="#truffle-js-配置文件" class="headerlink" title="truffle.js 配置文件"></a>truffle.js 配置文件</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">	build: &#123;&#125;, <span class="comment">// 构建</span></span><br><span class="line">	network: &#123;</span><br><span class="line">		development:&#123;</span><br><span class="line">			<span class="comment">// host,port,network_id: "*"</span></span><br><span class="line">		&#125;,</span><br><span class="line">		staging:&#123;</span><br><span class="line">			<span class="comment">// host,port,network_id: "*"</span></span><br><span class="line">		&#125;,</span><br><span class="line">		ropsten: &#123;</span><br><span class="line">			<span class="comment">// host,port,network_id: "*"</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;, <span class="comment">// 指定移植时使用哪个网络</span></span><br><span class="line">	mocha: &#123;&#125; <span class="comment">// 测试框架的配置选项</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="DAPP前端交互"><a href="#DAPP前端交互" class="headerlink" title="DAPP前端交互"></a>DAPP前端交互</h3><p>为了在前端 js 代码中能后使用 Truffle 提供的合约抽象,我们需要 truffle-default-builder,它可以帮助我们在把合约抽象整合到 js 中.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save truffle-default-builder@2.0.0</span><br></pre></td></tr></table></figure></p>
+<p>然后在 truffle.js 中增加配置 network.development 配置.然后执行 truffle build 命令</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2020/07/07/Truffle 框架开发区块链智能合约/" class="article-date">
+  <time datetime="2020-07-07T11:33:27.000Z" itemprop="datePublished">2020-07-07</time>
+</a>
+
+        </li>
+        
+          <li>
+            <span class="label">Categoría:</span>
+            
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Truffle-DAPP/">Truffle DAPP</a>
+  </div>
+
+
+          </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Truffle-DAPP/">Truffle DAPP</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <a href="/2020/07/15/认识基金/" id="article-nav-newer" class="article-nav-link-wrap newer">
+      <strong class="article-nav-caption">Nuevo</strong>
+      <div class="article-nav-title">
+        
+          认识基金
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/06/30/搭建 MOCK 服务/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Viejo</strong>
+      <div class="article-nav-title">搭建 MOCK 服务</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/valenzhou"><span class="fa fa-github-alt"></span></a></li>
+          
+            <li><a href="https://www.facebook.com/valen.zhou"><span class="fa fa-facebook"></span></a></li>
+          
+            <li><a href="https://twitter.com/valenzhou/"><span class="fa fa-twitter"></span></a></li>
+          
+            <li><a href="https://plus.google.com/"><span class="fa fa-google-plus"></span></a></li>
+          
+            <li><a href="https://www.google.com/"><span class="fa fa-globe"></span></a></li>
+          
+            <li><a href="/atom.xml"><span class="fa fa-rss"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>ipsum dolor sit amet, <strong>consectetur adipiscing elit.</strong> Fusce eget urna vitae velit <em>eleifend interdum at ac nisi. In nec ligula lacus. Cum sociis natoque</em> penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eu cursus erat, ut dapibus quam. Post</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>

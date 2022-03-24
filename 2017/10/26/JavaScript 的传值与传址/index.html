@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>JavaScript 作用域和变量提升 | Mr.喵的网络日志</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="JavaScript 的传值与传址复制类型与引用类型复制: 数字,布尔值,字符串(字符串无法改变,无法确定,行为类似于复制类型)引用: 数组,对象,函数等 12345678910// 复制类型var a = 1;var b = a;b++;a == 1 // true,因为 b 的修改不影响 a,b 是 a 的复制// 引用类型var c = [1];var d = c;d[0]++;c; //">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 作用域和变量提升">
+<meta property="og:url" content="http://yoursite.com/2017/10/26/JavaScript 的传值与传址/index.html">
+<meta property="og:site_name" content="Mr.喵的网络日志">
+<meta property="og:description" content="JavaScript 的传值与传址复制类型与引用类型复制: 数字,布尔值,字符串(字符串无法改变,无法确定,行为类似于复制类型)引用: 数组,对象,函数等 12345678910// 复制类型var a = 1;var b = a;b++;a == 1 // true,因为 b 的修改不影响 a,b 是 a 的复制// 引用类型var c = [1];var d = c;d[0]++;c; //">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2021-08-30T11:05:30.471Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript 作用域和变量提升">
+<meta name="twitter:description" content="JavaScript 的传值与传址复制类型与引用类型复制: 数字,布尔值,字符串(字符串无法改变,无法确定,行为类似于复制类型)引用: 数组,对象,函数等 12345678910// 复制类型var a = 1;var b = a;b++;a == 1 // true,因为 b 的修改不影响 a,b 是 a 的复制// 引用类型var c = [1];var d = c;d[0]++;c; //">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body>
+    
+  
+      <div id="container" class="container">
+        <article id="post-JavaScript 的传值与传址" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav id="main-nav" class="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/categories">Categories</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaScript 作用域和变量提升
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h3 id="JavaScript-的传值与传址"><a href="#JavaScript-的传值与传址" class="headerlink" title="JavaScript 的传值与传址"></a>JavaScript 的传值与传址</h3><h4 id="复制类型与引用类型"><a href="#复制类型与引用类型" class="headerlink" title="复制类型与引用类型"></a>复制类型与引用类型</h4><p>复制: 数字,布尔值,字符串(字符串无法改变,无法确定,行为类似于复制类型)<br>引用: 数组,对象,函数等</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 复制类型</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> b = a;</span><br><span class="line">b++;</span><br><span class="line">a == <span class="number">1</span> <span class="comment">// true,因为 b 的修改不影响 a,b 是 a 的复制</span></span><br><span class="line"><span class="comment">// 引用类型</span></span><br><span class="line"><span class="keyword">var</span> c = [<span class="number">1</span>];</span><br><span class="line"><span class="keyword">var</span> d = c;</span><br><span class="line">d[<span class="number">0</span>]++;</span><br><span class="line">c; <span class="comment">// [2] 因为 d = c 时赋值的是 a 地址的引用</span></span><br></pre></td></tr></table></figure>
+<h4 id="复制类型和引用类型在函数参数中的应用"><a href="#复制类型和引用类型在函数参数中的应用" class="headerlink" title="复制类型和引用类型在函数参数中的应用"></a>复制类型和引用类型在函数参数中的应用</h4><p>传值的传递,传给函数的是数值的一个复制,函数中对其的修改对外部不可见.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">change</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line">change(a);</span><br><span class="line">a; <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<p>传址的传递,传递给函数的是数值的引用.函数对其属性的内部修改外部可见,但函数内部新引用覆盖旧引用时,外部不可见,这也就是闭包的私有变量特性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],b=[<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">change</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">  a[<span class="number">0</span>] = <span class="number">9</span>; <span class="comment">// 属性修改</span></span><br><span class="line">  b = [<span class="number">6</span>,<span class="number">6</span>,<span class="number">6</span>]; <span class="comment">// 覆盖引用</span></span><br><span class="line">&#125;</span><br><span class="line">change(a,b)</span><br><span class="line">a; <span class="comment">// [9,2,3]</span></span><br><span class="line">b; <span class="comment">// [4,5]</span></span><br></pre></td></tr></table></figure>
+<p>但如果函数并未传递参数,根据作用域链向上查找,可以修改函数外部变量.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],b=[<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">change</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  a[<span class="number">0</span>] = <span class="number">9</span>; <span class="comment">// 向函数外部查找变量 a</span></span><br><span class="line">  b = [<span class="number">6</span>,<span class="number">6</span>,<span class="number">6</span>]; <span class="comment">// 向函数外部查找变量 b</span></span><br><span class="line">&#125;</span><br><span class="line">change(a,b)</span><br><span class="line">a; <span class="comment">// [9,2,3]</span></span><br><span class="line">b; <span class="comment">// [6,6,6]</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2017/10/26/JavaScript 的传值与传址/" class="article-date">
+  <time datetime="2017-10-26T11:03:01.000Z" itemprop="datePublished">2017-10-26</time>
+</a>
+
+        </li>
+        
+          <li>
+            <span class="label">Categoría:</span>
+            
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </div>
+
+
+          </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <a href="/2017/11/04/浏览器数据持久化存储技术解析/" id="article-nav-newer" class="article-nav-link-wrap newer">
+      <strong class="article-nav-caption">Nuevo</strong>
+      <div class="article-nav-title">
+        
+          浏览器数据持久化存储技术解析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/09/06/读<<美国种族简史>>/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Viejo</strong>
+      <div class="article-nav-title">读&lt;&lt;美国种族简史&gt;&gt;</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/valenzhou"><span class="fa fa-github-alt"></span></a></li>
+          
+            <li><a href="https://www.facebook.com/valen.zhou"><span class="fa fa-facebook"></span></a></li>
+          
+            <li><a href="https://twitter.com/valenzhou/"><span class="fa fa-twitter"></span></a></li>
+          
+            <li><a href="https://plus.google.com/"><span class="fa fa-google-plus"></span></a></li>
+          
+            <li><a href="https://www.google.com/"><span class="fa fa-globe"></span></a></li>
+          
+            <li><a href="/atom.xml"><span class="fa fa-rss"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>ipsum dolor sit amet, <strong>consectetur adipiscing elit.</strong> Fusce eget urna vitae velit <em>eleifend interdum at ac nisi. In nec ligula lacus. Cum sociis natoque</em> penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eu cursus erat, ut dapibus quam. Post</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>

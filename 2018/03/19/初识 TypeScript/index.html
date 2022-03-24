@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>初识 TypeScript | Mr.喵的网络日志</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="基础类型 any 任何类型 number 数字类型 string 字符串 boolean 布尔值 Array 数组 各类型元素相同 例如 any[] 或 Array Tuple 元组 各类型元素不同 enum 枚举 void 函数无返回值 null 空 undefined 未定义 never 永远不存在值的类型  自定义类型 自定义类型 type xxx = number | string 字符串">
+<meta name="keywords" content="TypeScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初识 TypeScript">
+<meta property="og:url" content="http://yoursite.com/2018/03/19/初识 TypeScript/index.html">
+<meta property="og:site_name" content="Mr.喵的网络日志">
+<meta property="og:description" content="基础类型 any 任何类型 number 数字类型 string 字符串 boolean 布尔值 Array 数组 各类型元素相同 例如 any[] 或 Array Tuple 元组 各类型元素不同 enum 枚举 void 函数无返回值 null 空 undefined 未定义 never 永远不存在值的类型  自定义类型 自定义类型 type xxx = number | string 字符串">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2021-08-30T11:13:41.862Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初识 TypeScript">
+<meta name="twitter:description" content="基础类型 any 任何类型 number 数字类型 string 字符串 boolean 布尔值 Array 数组 各类型元素相同 例如 any[] 或 Array Tuple 元组 各类型元素不同 enum 枚举 void 函数无返回值 null 空 undefined 未定义 never 永远不存在值的类型  自定义类型 自定义类型 type xxx = number | string 字符串">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body>
+    
+  
+      <div id="container" class="container">
+        <article id="post-初识 TypeScript" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav id="main-nav" class="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/categories">Categories</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      初识 TypeScript
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h3 id="基础类型"><a href="#基础类型" class="headerlink" title="基础类型"></a>基础类型</h3><ul>
+<li>any 任何类型</li>
+<li>number 数字类型</li>
+<li>string 字符串</li>
+<li>boolean 布尔值</li>
+<li>Array 数组 各类型元素相同 例如 any[] 或 Array<any></any></li>
+<li>Tuple 元组 各类型元素不同</li>
+<li>enum 枚举</li>
+<li>void 函数无返回值</li>
+<li>null 空</li>
+<li>undefined 未定义</li>
+<li>never 永远不存在值的类型</li>
+</ul>
+<h3 id="自定义类型"><a href="#自定义类型" class="headerlink" title="自定义类型"></a>自定义类型</h3><ul>
+<li>自定义类型 type xxx = number | string</li>
+<li>字符串字面量类型 type xxx = ‘click’ | ‘scroll’ …</li>
+</ul>
+<h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> [变量名] : [类型] = 值;</span><br><span class="line"><span class="keyword">var</span> uname: string = <span class="string">'jack'</span></span><br><span class="line"><span class="keyword">var</span> uname: string;</span><br></pre></td></tr></table></figure>
+<h3 id="类型断言-type-assertion"><a href="#类型断言-type-assertion" class="headerlink" title="类型断言(type assertion)"></a>类型断言(type assertion)</h3><p>类型断言可以手动指定一个值得类型,即允许变量从一种类型更改为另一种类型.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &lt;类型&gt;值</span></span><br><span class="line"><span class="comment">// 或: 值 as 类型</span></span><br><span class="line"><span class="comment">// JSX 中使用 &lt;type&gt; 的断言语法时，这会与 JSX 的语法存在歧义,建议使用 as</span></span><br><span class="line">interface Foo &#123;</span><br><span class="line">  bar: number;</span><br><span class="line">  bas: string;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> foo = &#123;&#125; <span class="keyword">as</span> Foo;</span><br><span class="line">foo.bar = <span class="number">123</span>;</span><br><span class="line">foo.bas = <span class="string">'hello'</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="类型推断"><a href="#类型推断" class="headerlink" title="类型推断"></a>类型推断</h3><p>当类型没有指定时,TypeScript 编译器会利用类型推断来推断类型.</p>
+<p>如果由于缺乏声明而不能推断出类型,那么它的类型被视作默认的动态 any 类型.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">2</span>;<span class="comment">//类型推断为 number</span></span><br><span class="line">num = <span class="string">'12'</span>;<span class="comment">// 编译错误</span></span><br></pre></td></tr></table></figure>
+<h3 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h3><ul>
+<li>全局作用域(全局变量)</li>
+<li>类作用域(类变量,静态变量)</li>
+<li>局部作用域(局部变量)</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> global_num = <span class="number">12</span> <span class="comment">// 全局变量</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Numbers</span> </span>&#123;</span><br><span class="line">    num_val = <span class="number">13</span>; <span class="comment">// 类变量</span></span><br><span class="line">	<span class="keyword">static</span> sval = <span class="number">10</span>; <span class="comment">// 静态变量</span></span><br><span class="line">    storeNum(): <span class="keyword">void</span>&#123;</span><br><span class="line">		<span class="keyword">var</span> local_num = <span class="number">14</span>; <span class="comment">// 局部变量</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'全局变量为'</span>+global_num)</span><br><span class="line"><span class="built_in">console</span>.log(Numbers.sval)<span class="comment">//静态变量</span></span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> Numbers()</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'类变量'</span>+obj.num_val)</span><br></pre></td></tr></table></figure>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><h4 id="函数返回值"><a href="#函数返回值" class="headerlink" title="函数返回值"></a>函数返回值</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数定义</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">greet</span>(<span class="params"></span>):<span class="title">string</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'helloworld'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span> (<span class="params">x:number,y:number</span>): <span class="title">number</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="可选参数"><a href="#可选参数" class="headerlink" title="可选参数"></a>可选参数</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buildName</span>(<span class="params">firstName:string,lastName ?:string</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(lastName)&#123;</span><br><span class="line">        <span class="keyword">return</span> firstName + <span class="string">' '</span> + lastName</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> firstName</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> result1 = buildName(<span class="string">'bob'</span>) <span class="comment">// 'bob'</span></span><br><span class="line"><span class="keyword">let</span> result2 = buildName(<span class="string">'bob'</span>,<span class="string">'jack'</span>,<span class="string">'adams'</span>) <span class="comment">// 错误,参数过多</span></span><br><span class="line"><span class="keyword">let</span> result2 = buildName(<span class="string">'bob'</span>,<span class="string">'jack'</span>) <span class="comment">// bob jack</span></span><br></pre></td></tr></table></figure>
+<h4 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数"></a>默认参数</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">caculate</span>(<span class="params">price:number,rate:number = <span class="number">0.50</span></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> price * rate</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="剩余参数"><a href="#剩余参数" class="headerlink" title="剩余参数"></a>剩余参数</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buildName</span>(<span class="params">firstName: string, ...restName:string[]</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> firstName + <span class="string">' '</span> + restName.join(<span class="string">' '</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="lambda-箭头函数"><a href="#lambda-箭头函数" class="headerlink" title="lambda 箭头函数"></a>lambda 箭头函数</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="function">(<span class="params">x:number</span>) =&gt;</span> <span class="number">10</span> + x</span><br></pre></td></tr></table></figure>
+<h3 id="联合类型"><a href="#联合类型" class="headerlink" title="联合类型"></a>联合类型</h3><p>可以通过管道符<code>|</code>将变量设置多种类型.赋值时可以根据设置的类型来赋值,也可以将联合类型作为函数参数使用.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> val:string|number</span><br><span class="line">val = <span class="number">12</span></span><br><span class="line">val = <span class="string">'jack'</span></span><br><span class="line"><span class="comment">// 数组联合声明</span></span><br><span class="line"><span class="keyword">var</span> arr:number[] | string[]</span><br></pre></td></tr></table></figure>
+<h3 id="交叉类型"><a href="#交叉类型" class="headerlink" title="交叉类型"></a>交叉类型</h3><p>你可以通过<code>&amp;</code>交叉类型从两个对象中创建一个新对象，新对象会拥有着两个对象所有的功能。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">extend</span>&lt;<span class="title">T</span>, <span class="title">U</span>&gt;(<span class="params">first: T, second: U</span>): <span class="title">T</span> &amp; <span class="title">U</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> result = <span class="xml"><span class="tag">&lt;<span class="name">T</span> &amp; <span class="attr">U</span>&gt;</span>&#123;&#125;;</span></span><br><span class="line"><span class="xml">  for (let id in first) &#123;</span></span><br><span class="line">    (&lt;T&gt;result)[id] = first[id];</span><br><span class="line">  &#125;</span><br><span class="line">  for (let id in second) &#123;</span><br><span class="line">    if (!result.hasOwnProperty(id)) &#123;</span><br><span class="line">      (&lt;U&gt;result)[id] = second[id];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const x = extend(&#123; a: 'hello' &#125;, &#123; b: 42 &#125;);</span><br><span class="line"></span><br><span class="line">// 现在 x 拥有了 a 属性与 b 属性</span><br><span class="line">const a = x.a;</span><br><span class="line">const b = x.b;</span><br></pre></td></tr></table></figure>
+<h3 id="TypeScript-接口"><a href="#TypeScript-接口" class="headerlink" title="TypeScript 接口"></a>TypeScript 接口</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">interface IPerson&#123;</span><br><span class="line">    firstName: string,</span><br><span class="line">    <span class="comment">// 只读属性</span></span><br><span class="line">    readonly lastName:string,</span><br><span class="line">    sayHi: <span class="function"><span class="params">()</span>=&gt;</span>string,</span><br><span class="line">    <span class="comment">// 可选属性</span></span><br><span class="line">    age?:number,</span><br><span class="line">    <span class="comment">//任意属性 其类型必须是其他属性类型的子集, any,null...</span></span><br><span class="line">    [propName:string]: any</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> customer: IPerson = &#123;</span><br><span class="line">    firstName: <span class="string">'Tom'</span>,</span><br><span class="line">    lastName: <span class="string">'Hanks'</span>,</span><br><span class="line">    sayHi: ():<span class="function"><span class="params">string</span> =&gt;</span> &#123;</span><br><span class="line">    	<span class="keyword">return</span> <span class="string">'hi'</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 函数也可以使用 interface</span></span><br><span class="line">interface SearchFunc&#123;</span><br><span class="line">    (source: string, <span class="attr">subString</span>:string):boolean;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> mySearch: SearchFunc;</span><br><span class="line">mySearch = <span class="function"><span class="keyword">function</span>(<span class="params">source:string,subString:string</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> source.search(subString) !== <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 可索引类型(定义索引类型)</span></span><br><span class="line">interface StringArray&#123;</span><br><span class="line">    [index:number]: string</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> MyArray : StringArray;</span><br><span class="line">MyArray = [<span class="string">'初春令月'</span>,<span class="string">'气淑风和'</span>]</span><br><span class="line"><span class="built_in">console</span>.log(MyArray[<span class="number">1</span>])</span><br><span class="line"><span class="comment">// 接口也可以继承接口</span></span><br><span class="line">interface Shape&#123;</span><br><span class="line">    color: string</span><br><span class="line">&#125;</span><br><span class="line">interface PenStroke&#123;</span><br><span class="line">    penWidth:nubmer</span><br><span class="line">&#125;</span><br><span class="line">interface Square extends Shape,PenStroke&#123;</span><br><span class="line">    sideLength:number</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> s = <span class="xml"><span class="tag">&lt;<span class="name">Square</span>&gt;</span>&#123;&#125;;</span></span><br><span class="line"><span class="xml">s.color="blue"</span></span><br><span class="line"><span class="xml">s.penWidth =100</span></span><br><span class="line"><span class="xml">s.sideLength = 10</span></span><br><span class="line"><span class="xml">// 接口还可以继承类</span></span><br><span class="line"><span class="xml">class Point&#123;</span></span><br><span class="line"><span class="xml">    x:number;</span></span><br><span class="line"><span class="xml">    y:number;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml">interface Point3d extend Point&#123;</span></span><br><span class="line"><span class="xml">    z:number;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml">let point3d : Point3d&#123;</span></span><br><span class="line"><span class="xml">    x:1,</span></span><br><span class="line"><span class="xml">    y:2,</span></span><br><span class="line"><span class="xml">    z:3</span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure>
+<h5 id="内联类型注解"><a href="#内联类型注解" class="headerlink" title="内联类型注解"></a>内联类型注解</h5><p>内联类型能为你快速的提供一个类型注解。它可以帮助你省去为类型起名的麻烦,如果多次使用相同的内联注解时，可以考虑把它重构为一个接口.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> name: &#123;</span><br><span class="line">  first: string;</span><br><span class="line">  second: string;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">name = &#123;</span><br><span class="line">  first: <span class="string">'John'</span>,</span><br><span class="line">  second: <span class="string">'Doe'</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="TypeScript-类"><a href="#TypeScript-类" class="headerlink" title="TypeScript 类"></a>TypeScript 类</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span></span>&#123;</span><br><span class="line">    <span class="comment">//字段</span></span><br><span class="line">    engine: string;</span><br><span class="line">	_name: string;</span><br><span class="line">	<span class="comment">// 构造函数</span></span><br><span class="line">    <span class="keyword">constructor</span>(engine:string)&#123;</span><br><span class="line">        <span class="keyword">this</span>.engine = engine</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 储存器</span></span><br><span class="line">    get name():string&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>._name</span><br><span class="line">    &#125;</span><br><span class="line">    set name(value:string)&#123;</span><br><span class="line">        <span class="keyword">this</span>._name = value</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 方法</span></span><br><span class="line">    disp():<span class="keyword">void</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"发动机为:"</span> + <span class="keyword">this</span>.engine)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Feature</span> <span class="keyword">extends</span> <span class="title">Car</span></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> name: string; <span class="comment">// 静态变量或静态方法,不需要实例化,直接通过类调用</span></span><br><span class="line">    <span class="keyword">constructor</span>()&#123;</span><br><span class="line">        <span class="keyword">super</span>() <span class="comment">// 调用父类构造函数和方法</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// private 私有,只能在类中访问</span></span><br><span class="line">    <span class="comment">// protected 受保护,只能在自身以及子类父类访问</span></span><br><span class="line">    <span class="comment">// public(默认) 公有,可以再任何地方被访问</span></span><br><span class="line">    run():<span class="keyword">void</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'品牌是:'</span>+Feature.name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 创建一个实例</span></span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> Car(<span class="string">'XXSY1'</span>)</span><br><span class="line"><span class="comment">// 抽象类(不允许实例化,但可以被继承,内部方法也可以抽象化)</span></span><br><span class="line">abstrct <span class="class"><span class="keyword">class</span> <span class="title">xxx</span></span>&#123;...&#125;</span><br><span class="line"><span class="comment">// 接口 interface 可以对类的一部分进行抽象.implements(实现)是一个重要概念.不同类之间共有的特性提取为接口用 implements 实现.一个类 可以实现多个接口.</span></span><br><span class="line">interface Light&#123;</span><br><span class="line">    lightOn() <span class="comment">// 开灯</span></span><br><span class="line">    lightOff() <span class="comment">// 关灯</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span> <span class="title">implements</span> <span class="title">Light</span></span>&#123;</span><br><span class="line">    lightOn() <span class="comment">// 开灯</span></span><br><span class="line">    lightOff() <span class="comment">// 关灯</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h3><p>TypeScript 文件模块支持commonjs, amd, es modules, others,你可以根据不同的 <code>module</code> 选项来把 TypeScript 编译成不同的 JavaScript 模块类型.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名: SomeInterface.ts</span></span><br><span class="line"><span class="keyword">export</span> interface SomeInterface&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 引用</span></span><br><span class="line"><span class="keyword">import</span> 	&#123;SomeInterfaceRef&#125; <span class="keyword">from</span> <span class="string">'./SomeInterface'</span></span><br></pre></td></tr></table></figure>
+<h3 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h3><p>泛型是在定义函数,接口或类时,不预先指定具体类型,而是在使用时再指定的一种特性.</p>
+<p>使用泛型来创建可重用的组件,一个组件可以支持多种数据类型.这样用户就可以以自己的数据类型来使用组件.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Hello</span>&lt;<span class="title">T</span>&gt;(<span class="params">arg:T</span>):<span class="title">T</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> arg</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> output = Hello&lt;string&gt;(<span class="string">'helloworld'</span>)<span class="comment">//调用时指定类型</span></span><br><span class="line"><span class="keyword">let</span> output2 = Hello(<span class="string">'helloworld'</span>) <span class="comment">// 或不指定,让类型推论自动推算</span></span><br></pre></td></tr></table></figure>
+<p>泛型约束是在函数内部使用泛型变量时,由于事先不知道它是哪种类型,所以不能随意的操作它的属性和方法,比如 length 属性.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">interface Lengthwise &#123;</span><br><span class="line">    length: number</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loggin</span>&lt;<span class="title">T</span> <span class="title">extends</span> <span class="title">Lengthwise</span>&gt;(<span class="params">arg:T</span>):<span class="title">T</span></span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(arg.length)</span><br><span class="line">    <span class="keyword">return</span> arg</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 泛型通过接口约束了必须有 length 方法,如果没有编译阶段会报错</span></span><br></pre></td></tr></table></figure>
+<p>接口可以定义函数形状,那么有泛型的接口也可以定义函数形状</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">interface CreateArrayFunc&lt;T&gt;&#123;</span><br><span class="line">    (length:number,<span class="attr">value</span>:T): <span class="built_in">Array</span>&lt;T&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>泛型类(当实际参数也无法推测出类型时,我们还可以给泛型指定默认参数)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GenericNumber</span>&lt;<span class="title">T</span></span>=string&gt; &#123;</span><br><span class="line">	zeroValue: T;</span><br><span class="line">    add: <span class="function">(<span class="params">x:T,y:T</span>) =&gt;</span> T;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="声明合并"><a href="#声明合并" class="headerlink" title="声明合并"></a>声明合并</h3><p>如果声明了两个以上的 相同名字的函数,接口或类,那么它们会合并成一个类型.</p>
+<h5 id="函数合并"><a href="#函数合并" class="headerlink" title="函数合并"></a>函数合并</h5><p>我们可以使用函数重载定义多个函数类型</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reverse</span>(<span class="params">x:number</span>):<span class="title">number</span>;</span></span><br><span class="line"><span class="function"><span class="title">function</span> <span class="title">reverse</span>(<span class="params">x:string</span>):<span class="title">string</span>;</span></span><br><span class="line"><span class="function"><span class="title">function</span> <span class="title">reverse</span>(<span class="params">x:number | string</span>):<span class="title">number</span> | <span class="title">string</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> x === <span class="string">'number'</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Number</span>(x.toString().split(<span class="string">''</span>).reverse().join(<span class="string">''</span>))</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">typeof</span> x === <span class="string">'string'</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> x.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="接口合并"><a href="#接口合并" class="headerlink" title="接口合并"></a>接口合并</h5><p>接口合并的类型要一致,否则会报错,接口中方法合并和函数合并一样.<strong>类合并和接口合并规则一样</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">interface Alarm &#123;</span><br><span class="line">    price: number;</span><br><span class="line">&#125;</span><br><span class="line">interface Alarm &#123;</span><br><span class="line">    weight: number;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 合并后相当于</span></span><br><span class="line">interface Alarm &#123;</span><br><span class="line">    price: number;</span><br><span class="line">    weight: number;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="声明文件"><a href="#声明文件" class="headerlink" title="声明文件"></a>声明文件</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">declare <span class="keyword">var</span> jQuery: <span class="function">(<span class="params">selector: string</span>) =&gt;</span> any</span><br><span class="line">jQuery(<span class="string">'#foo'</span>)</span><br><span class="line"><span class="comment">// 我们通常把声明放到一个文件中,比如 jquery.d.ts</span></span><br><span class="line"><span class="comment">// 推荐使用@types 统一管理第三方库的声明文件</span></span><br><span class="line"><span class="comment">// 如果第三方没有提供,需要我们自己书写声明文件</span></span><br><span class="line">declare <span class="keyword">var</span> <span class="comment">// 全局变量</span></span><br><span class="line">declare <span class="function"><span class="keyword">function</span> // 全局函数</span></span><br><span class="line"><span class="function"><span class="title">declare</span> <span class="title">class</span> // 全局类</span></span><br><span class="line"><span class="function"><span class="title">declare</span> <span class="title">enum</span> // 全局枚举</span></span><br><span class="line"><span class="function"><span class="title">declare</span> <span class="title">namespace</span> // 全局对象(<span class="params">含子属性</span>)</span></span><br><span class="line"><span class="function"><span class="title">interface</span> // 全局接口</span></span><br><span class="line"><span class="function"><span class="title">type</span> // 全局类型</span></span><br></pre></td></tr></table></figure>
+<h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><p>TypeScript 提供了 <code>namespace</code> 关键字用来在确保创建的变量不会泄漏至全局变量中.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">namespace Utility &#123;</span><br><span class="line">  <span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">log</span>(<span class="params">msg</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(msg);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">error</span>(<span class="params">msg</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(msg);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// usage</span></span><br><span class="line">Utility.log(<span class="string">'Call me'</span>);</span><br><span class="line">Utility.error(<span class="string">'maybe'</span>);</span><br></pre></td></tr></table></figure>
+<p><code>namespace</code> 关键字通过 TypeScript 编译后，与我们看到的 JavaScript 代码一样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">Utility</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 添加属性至 Utility</span></span><br><span class="line">&#125;)(Utility || Utility = &#123;&#125;);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2018/03/19/初识 TypeScript/" class="article-date">
+  <time datetime="2018-03-19T11:12:13.000Z" itemprop="datePublished">2018-03-19</time>
+</a>
+
+        </li>
+        
+          <li>
+            <span class="label">Categoría:</span>
+            
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/TypeScript/">TypeScript</a>
+  </div>
+
+
+          </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TypeScript/">TypeScript</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <a href="/2018/04/12/CSS世界-读书笔记/" id="article-nav-newer" class="article-nav-link-wrap newer">
+      <strong class="article-nav-caption">Nuevo</strong>
+      <div class="article-nav-title">
+        
+          &lt;CSS世界&gt;读书笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/12/2017前端技术发展回顾/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Viejo</strong>
+      <div class="article-nav-title">2017前端技术发展回顾</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/valenzhou"><span class="fa fa-github-alt"></span></a></li>
+          
+            <li><a href="https://www.facebook.com/valen.zhou"><span class="fa fa-facebook"></span></a></li>
+          
+            <li><a href="https://twitter.com/valenzhou/"><span class="fa fa-twitter"></span></a></li>
+          
+            <li><a href="https://plus.google.com/"><span class="fa fa-google-plus"></span></a></li>
+          
+            <li><a href="https://www.google.com/"><span class="fa fa-globe"></span></a></li>
+          
+            <li><a href="/atom.xml"><span class="fa fa-rss"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>ipsum dolor sit amet, <strong>consectetur adipiscing elit.</strong> Fusce eget urna vitae velit <em>eleifend interdum at ac nisi. In nec ligula lacus. Cum sociis natoque</em> penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eu cursus erat, ut dapibus quam. Post</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>

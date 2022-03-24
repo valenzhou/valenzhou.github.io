@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>入门shell编程 | Mr.喵的网络日志</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="入门shell编程第一个shell脚本1234567#!/usr/bin/env bashmkdir codecd  codefor ((i=0; i&amp;lt;3; i++)); do    touch test_$&amp;#123;i&amp;#125;.txt    echo &quot;shell很简单&quot; &amp;gt;&amp;gt; test_$&amp;#123;i&amp;#125;.txtdone 让我们看一下以上代码都做了什么:  从">
+<meta name="keywords" content="Shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="入门shell编程">
+<meta property="og:url" content="http://yoursite.com/2019/01/11/入门shell编程/index.html">
+<meta property="og:site_name" content="Mr.喵的网络日志">
+<meta property="og:description" content="入门shell编程第一个shell脚本1234567#!/usr/bin/env bashmkdir codecd  codefor ((i=0; i&amp;lt;3; i++)); do    touch test_$&amp;#123;i&amp;#125;.txt    echo &quot;shell很简单&quot; &amp;gt;&amp;gt; test_$&amp;#123;i&amp;#125;.txtdone 让我们看一下以上代码都做了什么:  从">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2021-08-30T11:21:42.942Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="入门shell编程">
+<meta name="twitter:description" content="入门shell编程第一个shell脚本1234567#!/usr/bin/env bashmkdir codecd  codefor ((i=0; i&amp;lt;3; i++)); do    touch test_$&amp;#123;i&amp;#125;.txt    echo &quot;shell很简单&quot; &amp;gt;&amp;gt; test_$&amp;#123;i&amp;#125;.txtdone 让我们看一下以上代码都做了什么:  从">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body>
+    
+  
+      <div id="container" class="container">
+        <article id="post-入门shell编程" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav id="main-nav" class="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/categories">Categories</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      入门shell编程
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h1 id="入门shell编程"><a href="#入门shell编程" class="headerlink" title="入门shell编程"></a>入门shell编程</h1><h3 id="第一个shell脚本"><a href="#第一个shell脚本" class="headerlink" title="第一个shell脚本"></a>第一个shell脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line">mkdir code</span><br><span class="line"><span class="built_in">cd</span>  code</span><br><span class="line"><span class="keyword">for</span> ((i=0; i&lt;3; i++)); <span class="keyword">do</span></span><br><span class="line">    touch test_<span class="variable">$&#123;i&#125;</span>.txt</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"shell很简单"</span> &gt;&gt; test_<span class="variable">$&#123;i&#125;</span>.txt</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>让我们看一下以上代码都做了什么:</p>
+<ol>
+<li>从系统path中寻找指定脚本的解释程序 </li>
+<li>创建 名叫code文件夹 </li>
+<li>进入创建的文件夹 </li>
+<li>for循环3次 </li>
+<li>创建文件 </li>
+<li>往创建的文件中写入信息 </li>
+<li>结束循环</li>
+</ol>
+<p>mkdir, touch，cd，touch，echo都是系统命令，在命令行下可以直接执行 for, do, done 是shell脚本语言 for循环的语法.</p>
+<h3 id="编写shell"><a href="#编写shell" class="headerlink" title="编写shell"></a>编写shell</h3><p>新建一个文件，扩展名为sh（sh代表shell），扩展名并不影响脚本执行，见名知意就好，如果你用php，扩展名为php，如果你用Python，扩展名为python.</p>
+<p>第一行一般是这样:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/php</span></span><br><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"><span class="comment">#! 是一个约定的标记，它告诉系统这个脚本需要什么解释器来执行 /env 是系统的PATH目录中查找</span></span><br></pre></td></tr></table></figure>
+<h4 id="运行shell脚本有两种方式"><a href="#运行shell脚本有两种方式" class="headerlink" title="运行shell脚本有两种方式"></a>运行shell脚本有两种方式</h4><ol>
+<li><p>作为可执行程序</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod +x op_base.sh  //设置op_base.sh可执行权限</span><br><span class="line">./op_base.sh  //执行op_base.sh文件</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>作为参数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/sh op_base.sh</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><p>定义变量时，变量名前不需要加符号和Python一样,但是在PHP语言中变量需要加$.如<code>my_name=&quot;jack&quot;</code></p>
+<p>变量名和=之间不能有空格且变量后不能有<code>;</code>号.</p>
+<h4 id="使用变量"><a href="#使用变量" class="headerlink" title="使用变量"></a>使用变量</h4><p>对于已经定义过的变量,使用的时候在前面添加<code>$</code>,如<code>echo $my_name</code>,或<code>echo ${my_name}</code> .花括号是可选的,但建议加上.因为花括号是为了帮助解释器识别变量的边界.</p>
+<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p>单行注释使用<code>#</code>,解释器会忽略该行</p>
+<p>sh 里没有多行注释,只能每一行加一个#号.</p>
+<h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><p>shell 不像其他语言如 php,python 有很多数据类型,在 shell 中常用的数据类型即字符串和数字.</p>
+<p>shell中的引号和 php 类似,可以用单引号或双引号,双引号中可以有变量,可以出现转义字符,但单引号中的变量是无效的.python 中引号没有区别,且存在三个引号.三个引号不会被转义.</p>
+<h5 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h5><ul>
+<li><p>拼接字符串</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">"hello"</span></span><br><span class="line">b=<span class="string">"world"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$a</span> <span class="variable">$b</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>获取字符串长度</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#a&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>截取字符串</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;a:0:2&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="shell-数组"><a href="#shell-数组" class="headerlink" title="shell 数组"></a>shell 数组</h3><h4 id="定义数组"><a href="#定义数组" class="headerlink" title="定义数组"></a>定义数组</h4><p>在 shell 中用括号表示数组,数组元素用<strong>空格</strong>分隔开.如<code>name=(name1 name2 name3)</code>还可以单独定义数组的各个分量如<code>arr[0]=name1</code></p>
+<h4 id="读取数组"><a href="#读取数组" class="headerlink" title="读取数组"></a>读取数组</h4><p>读取数组的一般格式是<code>${数组[下标]}</code>,比如<code>echo ${name[0]}</code>,使用<code>@</code>符号可以获取数组中所有元素.例如<code>echo $name[@]</code></p>
+<h4 id="获取数组长度"><a href="#获取数组长度" class="headerlink" title="获取数组长度"></a>获取数组长度</h4><p>获取数组长度与字符串类似,例如:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#获取数组元素个数</span></span><br><span class="line">length=<span class="variable">$&#123;#name[@]&#125;</span></span><br><span class="line"><span class="built_in">echo</span> length</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">length=<span class="variable">$&#123;#name[*]&#125;</span></span><br><span class="line"><span class="built_in">echo</span> length</span><br><span class="line"><span class="comment"># 取得数组单个元素的长度</span></span><br><span class="line">length=<span class="variable">$&#123;#name[n]&#125;</span></span><br><span class="line"><span class="built_in">echo</span> length</span><br></pre></td></tr></table></figure>
+<h3 id="shell-传递参数"><a href="#shell-传递参数" class="headerlink" title="shell 传递参数"></a>shell 传递参数</h3><p>我们可以在执行 Shell 脚本时，向脚本传递参数，脚本内获取参数的格式为：$n。n 代表一个数字，1 为执行脚本的第一个参数，2 为执行脚本的第二个参数，以此类推……<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./test.sh 1 2 3</span><br><span class="line"><span class="variable">$0</span> <span class="comment"># ./test.sh</span></span><br><span class="line"><span class="variable">$1</span> <span class="comment"># 1 ...</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="shell-运算符"><a href="#shell-运算符" class="headerlink" title="shell 运算符"></a>shell 运算符</h3><p>原生bash不支持简单的数学运算，但是可以通过其他命令来实现，例如 awk 和 expr，expr 最常用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 算术运算符</span></span><br><span class="line"><span class="comment"># + - \* / % = == !=</span></span><br><span class="line">val=`expr 2 + 2`</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"两数之和为 : <span class="variable">$val</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#关系运算符</span></span><br><span class="line"><span class="comment"># -eq 相等 , -ne 不相等, -gt 大于, -lt 小于, -ge 大于等于, -le 小于等于</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$a</span> -eq <span class="variable">$b</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$a</span> -eq <span class="variable">$b</span> : a 等于 b"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 布尔运算</span></span><br><span class="line"><span class="comment"># ! 非. -o 或, -a与</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$a</span> -lt 100 -a <span class="variable">$b</span> -gt 15 ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$a</span> 小于 100 且 <span class="variable">$b</span> 大于 15 : 返回 true"</span></span><br><span class="line"><span class="comment"># 逻辑运算</span></span><br><span class="line"><span class="comment"># &amp;&amp; ||</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 字符串运算</span></span><br><span class="line"><span class="comment"># =, !=, -z 长度是否为 0, -n 长度是否不为 0, $ 是否为空</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 文件测试运算符</span></span><br><span class="line"><span class="comment"># -e 是否存在</span></span><br><span class="line"><span class="comment"># -d 是否存在且为目录</span></span><br><span class="line"><span class="comment"># -f 是否存在且为常规文件</span></span><br><span class="line"><span class="comment"># -r 是否存在且可读</span></span><br><span class="line"><span class="comment"># -w 是否存在且可写</span></span><br><span class="line"><span class="comment"># -x 是否存在且可执行</span></span><br><span class="line"><span class="comment"># -s 文件大小是否大于 0</span></span><br></pre></td></tr></table></figure>
+<h3 id="test-命令-和"><a href="#test-命令-和" class="headerlink" title="test 命令 和 [[]]"></a>test 命令 和 [[]]</h3><p>test命令用来测试某条件是否成立,可以用[]代替, 但[]内部不能使用||和&amp;&amp;以及!,[[]]支持这种写法,<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">read</span> tel</span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$tel</span> =~ ^1[0-9]&#123;10&#125;$ ]]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"你输入的是手机号码"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"你输入的不是手机号码"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="echo-和-printf"><a href="#echo-和-printf" class="headerlink" title="echo 和 printf"></a>echo 和 printf</h3><p>echo 和 printf是用于字符串的输出.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$1</span>"</span> &gt; xx.txt</span><br><span class="line"><span class="built_in">printf</span> <span class="string">"%-10s %-8s %-4s\n"</span> 姓名 性别 体重kg</span><br></pre></td></tr></table></figure></p>
+<h3 id="shell-流程控制"><a href="#shell-流程控制" class="headerlink" title="shell 流程控制"></a>shell 流程控制</h3><p><strong>和其他编程语言流程控制不同,sh的流程控制不能为空</strong> </p>
+<p>如 js 流程控制</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="literal">true</span></span><br><span class="line"><span class="keyword">if</span> a&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"a 为 true"</span>)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">//什么也不做</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 在 sh/bash 里不能这么写,如果 else 分支没有执行语句就不要写 else. 如:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env sh</span></span><br><span class="line">a=1</span><br><span class="line">b=2</span><br><span class="line"><span class="keyword">if</span> [<span class="variable">$a</span> == <span class="variable">$b</span>]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">'a 等于 b'</span></span><br><span class="line"><span class="keyword">elif</span> [<span class="variable">$a</span> -gt <span class="variable">$b</span>]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">'a 大于 b'</span></span><br><span class="line"><span class="keyword">elif</span> [<span class="variable">$a</span> -lt <span class="variable">$b</span>]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">'a 小于 b'</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"没有符合的条件"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<h4 id="for-循环"><a href="#for-循环" class="headerlink" title="for 循环"></a>for 循环</h4><p>shell 的 for 循环和 python 类似.</p>
+<p>python 的 for 循环:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>:</span><br><span class="line">    print(item)</span><br></pre></td></tr></table></figure>
+<p>shell 的 for 循环写法一:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for item in 1 2 3 4 5;</span><br><span class="line">do</span><br><span class="line">	echo 'i='$i</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p>shell 的 for 循环写法二:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for ((i=0;i&lt;5;i++)); </span><br><span class="line">do</span><br><span class="line">	echo "i="$i</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<h4 id="while语句"><a href="#while语句" class="headerlink" title="while语句"></a>while语句</h4><p>while 循环用于不断执行一系列命令,也用于从输入文件中读取数据,命令通常为测试条件.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int=1</span><br><span class="line"><span class="keyword">while</span> ((<span class="variable">$int</span>&lt;=5))</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="variable">$int</span></span><br><span class="line">	<span class="built_in">let</span> <span class="string">"int++"</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>在Shell中，调用函数时可以向其传递参数。在函数体内部，通过 $n 的形式来获取参数的值，例如，$1表示第一个参数，$2表示第二个参数</p>
+<h3 id="shell-函数"><a href="#shell-函数" class="headerlink" title="shell 函数"></a>shell 函数</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">funWithReturn()&#123;</span><br><span class="line">    echo "这个函数会对输入的两个数字进行相加运算..."</span><br><span class="line">    echo "输入第一个数字: "</span><br><span class="line">    read aNum</span><br><span class="line">    echo "输入第二个数字: "</span><br><span class="line">    read anotherNum</span><br><span class="line">    echo "两个数字分别为 $aNum 和 $anotherNum !"</span><br><span class="line">    return $(($aNum+$anotherNum))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="输出-输入重定向"><a href="#输出-输入重定向" class="headerlink" title="输出/输入重定向"></a>输出/输入重定向</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># &gt; 输出重定向到 file</span></span><br><span class="line"><span class="comment"># &lt; 输人重定向到 file</span></span><br><span class="line"><span class="comment"># &gt;&gt; 追加</span></span><br><span class="line"><span class="comment"># n&gt;&amp;m n 和m 合并到 m</span></span><br></pre></td></tr></table></figure>
+<h3 id="shell-结合系统命令"><a href="#shell-结合系统命令" class="headerlink" title="shell 结合系统命令"></a>shell 结合系统命令</h3><p>shell脚本结合系统命令会更加强大,在字符串处理领域,有 grep,awk,sed 三剑客, grep 负责找出特定的行, awk 能将行拆分成多个字段, sed 则可以实现更新插入删除等写操作.例如定时检测 nginx,mysql 是否被关闭.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">path=/var/<span class="built_in">log</span></span><br><span class="line"><span class="built_in">log</span>=<span class="variable">$&#123;path&#125;</span>/httpd-mysql.log</span><br><span class="line"></span><br><span class="line">name=(apache mysql)</span><br><span class="line"></span><br><span class="line">exs_init[0]=<span class="string">"service httpd start"</span></span><br><span class="line">exs_init[1]=<span class="string">"/etc/init.d/mysqld restart"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> ((i=0; i&lt;2; i++)); <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"检查<span class="variable">$&#123;name[i]&#125;</span>进程是否存在"</span></span><br><span class="line">    ps -ef|grep <span class="variable">$&#123;name[i]&#125;</span> |grep -v grep</span><br><span class="line">    <span class="keyword">if</span> [ $? -eq 0 ]; <span class="keyword">then</span></span><br><span class="line">        pid=$(pgrep -f <span class="variable">$&#123;name[i]&#125;</span>)</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"`date +"</span>%Y-%m-%d %H:%M:%S<span class="string">"` <span class="variable">$&#123;name[$i]&#125;</span> is running with pid <span class="variable">$pid</span>"</span> &gt;&gt; <span class="variable">$&#123;log&#125;</span></span><br><span class="line">     <span class="keyword">else</span></span><br><span class="line">        $(<span class="variable">$&#123;exs_init[i]&#125;</span>)</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"`date +"</span>%Y-%m-%d %H:%M:%S<span class="string">"` <span class="variable">$&#123;name[$i]&#125;</span> start success"</span> &gt;&gt; <span class="variable">$&#123;log&#125;</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment">#检测 nginx、mysql进程是否存在，如果不存在了会自动重新启动。 脚本每次运行会写日志的，没事可以去看看该日志文件，如果进程是不是真的经常性不存在，恐怕就要排查一下深层原因了。</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2019/01/11/入门shell编程/" class="article-date">
+  <time datetime="2019-01-11T11:20:45.000Z" itemprop="datePublished">2019-01-11</time>
+</a>
+
+        </li>
+        
+          <li>
+            <span class="label">Categoría:</span>
+            
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Shell/">Shell</a>
+  </div>
+
+
+          </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <a href="/2019/05/09/vim入门指南/" id="article-nav-newer" class="article-nav-link-wrap newer">
+      <strong class="article-nav-caption">Nuevo</strong>
+      <div class="article-nav-title">
+        
+          vim入门指南
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/07/14/关于 JavaScript 隐式转换的一道题/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Viejo</strong>
+      <div class="article-nav-title">关于 JavaScript 隐式转换的一道题</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/valenzhou"><span class="fa fa-github-alt"></span></a></li>
+          
+            <li><a href="https://www.facebook.com/valen.zhou"><span class="fa fa-facebook"></span></a></li>
+          
+            <li><a href="https://twitter.com/valenzhou/"><span class="fa fa-twitter"></span></a></li>
+          
+            <li><a href="https://plus.google.com/"><span class="fa fa-google-plus"></span></a></li>
+          
+            <li><a href="https://www.google.com/"><span class="fa fa-globe"></span></a></li>
+          
+            <li><a href="/atom.xml"><span class="fa fa-rss"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>ipsum dolor sit amet, <strong>consectetur adipiscing elit.</strong> Fusce eget urna vitae velit <em>eleifend interdum at ac nisi. In nec ligula lacus. Cum sociis natoque</em> penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eu cursus erat, ut dapibus quam. Post</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
