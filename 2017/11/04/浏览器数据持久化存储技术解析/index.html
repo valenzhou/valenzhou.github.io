@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>浏览器数据持久化存储技术解析 | Mr.喵的网络日志</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="打开Chrome浏览器的调试模式,Application就列举了现代浏览器的8种缓存机制:HTTP文件缓存,LocalStorage,SessionStorage,indexDB,webSQL,Cookie,CacheStorage,ApplicationCache.  从网址到网页展示 我们先看一个问题,从我们打开浏览器地址栏输入一个网址,到浏览器展示网页内容的这段时间,浏览器和服务端都发生了">
+<meta name="keywords" content="前端 数据储存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浏览器数据持久化存储技术解析">
+<meta property="og:url" content="http://yoursite.com/2017/11/04/浏览器数据持久化存储技术解析/index.html">
+<meta property="og:site_name" content="Mr.喵的网络日志">
+<meta property="og:description" content="打开Chrome浏览器的调试模式,Application就列举了现代浏览器的8种缓存机制:HTTP文件缓存,LocalStorage,SessionStorage,indexDB,webSQL,Cookie,CacheStorage,ApplicationCache.  从网址到网页展示 我们先看一个问题,从我们打开浏览器地址栏输入一个网址,到浏览器展示网页内容的这段时间,浏览器和服务端都发生了">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2017-12-22T07:13:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浏览器数据持久化存储技术解析">
+<meta name="twitter:description" content="打开Chrome浏览器的调试模式,Application就列举了现代浏览器的8种缓存机制:HTTP文件缓存,LocalStorage,SessionStorage,indexDB,webSQL,Cookie,CacheStorage,ApplicationCache.  从网址到网页展示 我们先看一个问题,从我们打开浏览器地址栏输入一个网址,到浏览器展示网页内容的这段时间,浏览器和服务端都发生了">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body>
+    
+  
+      <div id="container" class="container">
+        <article id="post-浏览器数据持久化存储技术解析" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav id="main-nav" class="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/categories">Categories</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      浏览器数据持久化存储技术解析
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <blockquote>
+<p>打开Chrome浏览器的调试模式,Application就列举了现代浏览器的8种缓存机制:HTTP文件缓存,LocalStorage,SessionStorage,indexDB,webSQL,Cookie,CacheStorage,ApplicationCache.</p>
+</blockquote>
+<h3 id="从网址到网页展示"><a href="#从网址到网页展示" class="headerlink" title="从网址到网页展示"></a>从网址到网页展示</h3><blockquote>
+<p>我们先看一个问题,从我们打开浏览器地址栏输入一个网址,到浏览器展示网页内容的这段时间,浏览器和服务端都发生了什么事情?</p>
+</blockquote>
+<ul>
+<li>在接受到用户输入的网址后,浏览器会开启一个线程来处理这个请求,对用户输入的 URL 地址进行分析判断,如果是HTTP协议就按照HTTP方式来处理.</li>
+<li>调用浏览器引擎中的对应方法,比如 WebView 中的 loadUrl 方法,分析并加载这个 URL 地址.</li>
+<li>通过 DNS 解析获取该网站对应的 IP 地址,查询完成后连同浏览器的 Cookies,userAgent 等信息向网站目的地 IP 发送 Get 请求.</li>
+<li>进行 HTTP 协议会话,浏览器客户端向 web 服务器发送报文.</li>
+<li>进入网站后台上的 web 服务器处理请求, 如 Apache,Tomcat, Node.js服务器.</li>
+<li>进入部署好的后端应用,如 PHP, java, Javascript, Python等后端程序,找到对应的请求处理逻辑,这期间可能会读取服务器缓存或查询数据库等.</li>
+<li>服务器处理请求并返回响应报文,此时如果浏览器访问过该页面,缓存上有对应资源,会与服务器最后修改记录对比,一致则返回304,否则返回200与对应的内容.</li>
+<li>浏览器开始下载 HTML 文档(响应报文状态码为200时) 或者从本地缓存读取文件内容(浏览器缓存有效或响应报文状态码为304时).</li>
+<li>浏览器根据下载接收到的 HTML 文件解析结构建立 DOM文档树,并根据 HTML 中的标记请求下载指定的MIME文件(如CSS,JAvaScript脚本等),同时设置缓存等内容.</li>
+<li>页面开始解析渲染DOM,CSS根据规则解析并结合DOM文档树进行网页内容布局和绘制渲染,JavaScript根据DOM API 操作DOM,并读取浏览器缓存,执行事件绑定等,页面整个展示过程完成.</li>
+</ul>
+<h3 id="HTTP文件缓存"><a href="#HTTP文件缓存" class="headerlink" title="HTTP文件缓存"></a>HTTP文件缓存</h3><p>HTTP文件缓存是基于HTTP协议的浏览器端文件级缓存机制,在文件重复请求的情况下,浏览器可以根据HTTP响应的协议头信息判断是从服务器端请求文件还是本地读取文件.以下是 文件缓存的过程.</p>
+<pre><code>1. 浏览器会先查询Cache-Control来判断内容是否过期,如果未过期,直接读取浏览器端缓存文件不发送HTTP请求,否则进入下一步.
+2. 在浏览器端判断上次文件返回头中是否含有Etag信息,有则连同If-None-Match一起向服务器发生请求,服务端判断Etag未修改则返回状态304,修改则返回200,否则进入下一步.
+3. 在浏览器端判断上次文件是否含有Last-Modified信息,有则一起向服务器发送请求,服务器判断是否失效,失效返回200,未失效返回304.
+4. 如果Etag和Last-Modified都不存在,则向服务器请求内容.
+</code></pre><p>在HTML中我们添加的<code>meta</code>标签中的<code>Expires</code>和<code>Cache-Control</code>,且一般<code>Cache-Control</code>设置的是秒,如果以上两个同时设置,只要<code>Cache-Control</code>的设置生效.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Expires"</span> <span class="attr">content</span>=<span class="string">"Mon, 20 Jul 2016 23:00:00 GMT"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Cache-Control"</span> <span class="attr">content</span>=<span class="string">"max-age=7200"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>同时服务端也要设置静态资源的缓存时间.我们可以结合Koa-static中间件设置实现.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">static</span> = <span class="built_in">require</span>(<span class="string">'koa-static'</span>)</span><br><span class="line"><span class="keyword">const</span> app = koa()</span><br><span class="line">app.use(<span class="keyword">static</span>(<span class="string">'./pages'</span>,&#123;</span><br><span class="line">  maxage: <span class="number">7200</span></span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+<h3 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h3><p>localStorage是HTML5的一种本地缓存方案,目前主要用于浏览器端保存体积较大的数据(如AJAX返回结果等).但它在各版本浏览器的长度限制不一.它的核心API只有4个.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">localStorange.setItem(key,value)<span class="comment">//设置存储记录</span></span><br><span class="line">localStorage.getItem(key)<span class="comment">//获取储存记录</span></span><br><span class="line">localStorage.removeItem(key)<span class="comment">//删除记录</span></span><br><span class="line">localStorage.clear()<span class="comment">//清空</span></span><br></pre></td></tr></table></figure>
+<p>LocalStorage只支持简单数据类型的读取,为方便读取对象等格式内容,通常需要进行一层安全封装再引入使用.</p>
+<h3 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h3><p>sessionStorage和LocalStorage功能类似,但sessionStorange在浏览器关闭时会自动清空.它的API和LocalStorage的API完全相同,但由于不能持久化数据存储,因此使用场景较少.</p>
+<h3 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h3><p>cookie是网站为了辨别用户身份或session追踪而存储在用户浏览器的数据,cookie一般会通过HTTP请求到服务器端.一条cookie主要由键,值,域,过期时间和大小组成,一般用于保存用户的网站认证信息.通常最大限制为4KB.</p>
+<p>cookie分为两种,sessionCookie和持久型Cookie.前者一般不设置过期时间,表示与浏览器会话期间保存在内存中,持久性Cookie会设置过期时间保存在本地硬盘中,知道过期或清空才失效.</p>
+<p>Cookie设置中有个HttpOnly参数,浏览器端通过<code>doucument.cookie</code>是读取不到HttpOnly类型的Cookie的,只能通过HTTP请求头发送到服务器进行读写操作.这样可以避免服务器端的Cookie记录被js修改,保证了服务端验证cookie的安全性.</p>
+<h3 id="WebSQL"><a href="#WebSQL" class="headerlink" title="WebSQL"></a>WebSQL</h3><p>webSQL是浏览器端用于存储大量数据的缓存机制,以一个独立浏览器端数据存储规范的形式出现.它在HTML5前就已经出现,是单独的规范,它将数据以数据库二维表的形式存储在客户端,并且允许SQL语句的查询.</p>
+<p>webSQL的API主要包含上个核心方法:openDatabase(),transaction()和executeAql().</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//openDatabase()打开已经存在的数据库,不存在就创建.他的五个参数是数据库名,版本号,描述,数据库大小,创建回调.</span></span><br><span class="line"><span class="keyword">let</span> db = openDatabase(<span class="string">'mydatabase'</span>,<span class="string">'1.0'</span>,<span class="string">'test'</span>,<span class="number">2</span>*<span class="number">1024</span>*<span class="number">1024</span>)</span><br><span class="line">db.transaction(<span class="function"><span class="keyword">function</span>(<span class="params">table</span>)</span>&#123;</span><br><span class="line">  table.executeSql(<span class="string">'INSERT INTO t1 (id,msg) VALUES (1,"hello")'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//transaction方法允许我们根据情况控制事物提交或回滚.</span></span><br><span class="line"><span class="comment">//executeSql用于执行真实的SQL查询语句.</span></span><br></pre></td></tr></table></figure>
+<h3 id="IndexDB"><a href="#IndexDB" class="headerlink" title="IndexDB"></a>IndexDB</h3><p>IndexDB也是客户端存储大量结构化数据并且能在这些数据上使用索引进行高性能检索的一套API.由于webSQL不是HTML5规范,一般推荐使用IndexDB进行大量数据存储,其基本实现和webSQL类似.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(database)&#123;</span><br><span class="line">  database.transaction(<span class="function"><span class="keyword">function</span>(<span class="params">tx</span>)</span>&#123;</span><br><span class="line">    tx.executeSql(<span class="string">'INSERT INTO t1 (id,msg) VALUES (1,"hello")'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Application-Cache"><a href="#Application-Cache" class="headerlink" title="Application Cache"></a>Application Cache</h3><p>Application Cache是一种允许浏览器通过manifest配置文件在本地有选择性的存储js,css,图片等静态资源的缓存机制.当页面不是首次打开时,通过一个特定的manifest文件配置描述选择性新读取本地ApplicationCache的文件.所以它具有<strong>离线浏览</strong>,<strong>快速加载</strong>,<strong>服务器载荷小</strong>的优势.它的文件访问及更新机制如下:</p>
+<pre><code>1. 判断是否是第二次加载页面.
+2. 是的话访问AppCache.
+3. 检查manifest文件是否更新
+4. 无更新从AppCache读取,有更新则重新拉取并更新AppCache.
+</code></pre><p>使用方式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;html manifest=<span class="string">"app.manifest"</span>&gt;</span><br><span class="line"><span class="comment">//对应的描述文件如下</span></span><br><span class="line">CACHE MANIFEST</span><br><span class="line">#VERSION 1.0</span><br><span class="line">CACHE:</span><br><span class="line">xxx.css</span><br><span class="line">XXX.js</span><br><span class="line">XXX.png</span><br></pre></td></tr></table></figure>
+<p>浏览器也可以根据window.applicationCache来对其进行控制.</p>
+<p>尽管ApplicationCache的实现很方便,但是已经开始被标准弃用,渐渐将会由ServiceWorkers来代替.总之,ApplicationCache仍是一个不成熟的本地缓存解决方案.</p>
+<h3 id="cacheStorage"><a href="#cacheStorage" class="headerlink" title="cacheStorage"></a>cacheStorage</h3><p>cacheStorage是ServiceWorkers规范中定义的,用于保存每个ServiceWorker声明的Cache对象,是未来可代替ApplicationCache的离线方案.</p>
+<p>CacheStorage在浏览器端为window.caches,有open,match,has,delete,keys五个API.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">caches.has();<span class="comment">//检查如果包含cache对象,返回一个promise</span></span><br><span class="line">caches.open();<span class="comment">//打开一个cache对象,返回一个promsie</span></span><br><span class="line">caches.delete();<span class="comment">//删除一个cache对象,返回一个promise</span></span><br><span class="line">caches.keys();<span class="comment">//含有keys中字符串的任意一个,返回一个promise</span></span><br><span class="line">caches.match();<span class="comment">//匹配key中含有该字符的cache,返回一个promise</span></span><br></pre></td></tr></table></figure>
+<h3 id="Flash缓存"><a href="#Flash缓存" class="headerlink" title="Flash缓存"></a>Flash缓存</h3><p>Flash缓存主要基于网页端Flash,具有读写浏览器本地目录的功能,同时也可以向js提供调用的API,这样页面就可以通过js调用Flash读写本地指定的磁盘目录,达到本地数据缓存的目的.</p>
+<p>本文摘自张成文编著&lt;&lt;现代前端技术解析&gt;&gt;,详情请点击<a href="https://github.com/ouvens" target="_blank" rel="external">张成文的Github</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2017/11/04/浏览器数据持久化存储技术解析/" class="article-date">
+  <time datetime="2017-11-04T07:09:36.000Z" itemprop="datePublished">2017-11-04</time>
+</a>
+
+        </li>
+        
+          <li>
+            <span class="label">Category:</span>
+            
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </div>
+
+
+          </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端-数据储存/">前端 数据储存</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <a href="/2017/12/13/学习CSS-Grid布局/" id="article-nav-newer" class="article-nav-link-wrap newer">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          学习CSS Grid布局
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/26/JavaScript 的传值与传址/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaScript 作用域和变量提升</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/valenzhou"><span class="fa fa-github-alt"></span></a></li>
+          
+            <li><a href="https://www.facebook.com/valen.zhou"><span class="fa fa-facebook"></span></a></li>
+          
+            <li><a href="https://twitter.com/valenzhou/"><span class="fa fa-twitter"></span></a></li>
+          
+            <li><a href="https://plus.google.com/"><span class="fa fa-google-plus"></span></a></li>
+          
+            <li><a href="https://www.google.com/"><span class="fa fa-globe"></span></a></li>
+          
+            <li><a href="/atom.xml"><span class="fa fa-rss"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>ipsum dolor sit amet, <strong>consectetur adipiscing elit.</strong> Fusce eget urna vitae velit <em>eleifend interdum at ac nisi. In nec ligula lacus. Cum sociis natoque</em> penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eu cursus erat, ut dapibus quam. Post</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>

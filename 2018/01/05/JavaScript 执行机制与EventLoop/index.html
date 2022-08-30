@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>JavaScript 执行机制与EventLoop | Mr.喵的网络日志</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="JavaScript 执行机制与EventLoopJavaScript的执行机制 同步和异步任务进入不同的’执行场所’. 同步进入主线程,形成一个执行栈(后进先出) 异步进入 EventTable 并注册函数.当异步任务有了运行结果,将函数移入 EventQueue.(先进先出) 主线程任务执行完毕为空,将 EventQueue 读取相应函数进入主线程执行. 上述过程不断循环,即 EventLoo">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 执行机制与EventLoop">
+<meta property="og:url" content="http://yoursite.com/2018/01/05/JavaScript 执行机制与EventLoop/index.html">
+<meta property="og:site_name" content="Mr.喵的网络日志">
+<meta property="og:description" content="JavaScript 执行机制与EventLoopJavaScript的执行机制 同步和异步任务进入不同的’执行场所’. 同步进入主线程,形成一个执行栈(后进先出) 异步进入 EventTable 并注册函数.当异步任务有了运行结果,将函数移入 EventQueue.(先进先出) 主线程任务执行完毕为空,将 EventQueue 读取相应函数进入主线程执行. 上述过程不断循环,即 EventLoo">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2021-08-30T11:11:41.316Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript 执行机制与EventLoop">
+<meta name="twitter:description" content="JavaScript 执行机制与EventLoopJavaScript的执行机制 同步和异步任务进入不同的’执行场所’. 同步进入主线程,形成一个执行栈(后进先出) 异步进入 EventTable 并注册函数.当异步任务有了运行结果,将函数移入 EventQueue.(先进先出) 主线程任务执行完毕为空,将 EventQueue 读取相应函数进入主线程执行. 上述过程不断循环,即 EventLoo">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body>
+    
+  
+      <div id="container" class="container">
+        <article id="post-JavaScript 执行机制与EventLoop" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav id="main-nav" class="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/categories">Categories</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaScript 执行机制与EventLoop
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h1 id="JavaScript-执行机制与EventLoop"><a href="#JavaScript-执行机制与EventLoop" class="headerlink" title="JavaScript 执行机制与EventLoop"></a>JavaScript 执行机制与EventLoop</h1><h3 id="JavaScript的执行机制"><a href="#JavaScript的执行机制" class="headerlink" title="JavaScript的执行机制"></a>JavaScript的执行机制</h3><ol>
+<li>同步和异步任务进入不同的’执行场所’.</li>
+<li>同步进入主线程,形成一个执行栈(后进先出)</li>
+<li>异步进入 EventTable 并注册函数.当异步任务有了运行结果,将函数移入 EventQueue.(先进先出)</li>
+<li>主线程任务执行完毕为空,将 EventQueue 读取相应函数进入主线程执行.</li>
+<li>上述过程不断循环,即 EventLoop(事件循环)<ol>
+<li>简单概括就是,js 只有一个主线程,同步代码会依次入栈,执行完出栈,待栈为空时去检查异步的任务队列,</li>
+<li>如果异步事件触发,则将其加入到主线程的执行栈,不断循环.</li>
+</ol>
+</li>
+</ol>
+<h3 id="宏任务和微任务"><a href="#宏任务和微任务" class="headerlink" title="宏任务和微任务"></a>宏任务和微任务</h3><p>宏任务(macrotask)和微任务(microtask)是异步任务的两种分类,首先取出宏任务执行然后取出微任务执行,不断循环,直到EventQueue为空.<strong>需要注意的是,在当前的微任务没有执行完成时，是不会执行下一个宏任务的。</strong><br>宏任务: 整体代码script,setTimeOut,setInterval,setImmediate,requestAnimationFrame<br>微任务: promise,then,catch,finally,process.nexttick,MutationObserver</p>
+<p>代码分析<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'1'</span>)</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'2'</span>)</span><br><span class="line">  process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'3'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'4'</span>)</span><br><span class="line">    resolve()</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'5'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'6'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'7'</span>)</span><br><span class="line">  resolve()</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'8'</span>)</span><br><span class="line">&#125;)</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'9'</span>)</span><br><span class="line">  process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'10'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'11'</span>)</span><br><span class="line">    resolve()</span><br><span class="line">  &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'12'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>代码解析:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">第一轮事件循环: </span><br><span class="line">  整体 script 作为第一个宏任务进入主线程,然后输出1.</span><br><span class="line">  然后遇到 setTimeout,其回调分发到宏任务 EveneQueue 中,暂记为 setTimeout1</span><br><span class="line">  process.nextTick分发到微任务 EveneQueue 中暂记为 process1</span><br><span class="line">  promise 和 new Promise 直接执行输入7,then 分发到微任务,记为 then1</span><br><span class="line">  然后是setTimeout 记为setTimeout2,分发到宏任务EveneQueue</span><br><span class="line">  第一轮宏任务执行完毕,执行微任务队列,把微任务process1,then1加入执行栈,分别输出6,8</span><br><span class="line">  第一轮执行完毕,分别输出 1 =&gt; 7 =&gt; 6 =&gt; 8</span><br><span class="line">第二轮事件循环:</span><br><span class="line">  开启第二轮宏任务setTimeout1,输出2</span><br><span class="line">  process和 then 分发到微任务,记为 process2,then2.</span><br><span class="line">  然后输出4,宏任务执行完毕.</span><br><span class="line">  微任务process2,then2加入执行栈,输出3,5</span><br><span class="line">  第二轮执行完毕,分别输出 2 =&gt; 4 =&gt; 3 =&gt; 5</span><br><span class="line">第三轮时间循环:</span><br><span class="line">  开启第三轮宏任务setTimeout2,输出 9</span><br><span class="line">  process和 then 分发到微任务,记为 process3,then3.</span><br><span class="line">  然后输出11,宏任务执行完毕.</span><br><span class="line">  任务process3,then3加入执行栈,输出10,12</span><br><span class="line">  第三轮执行完毕,分别输出 9 =&gt; 11 =&gt; 10 =&gt; 12</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2018/01/05/JavaScript 执行机制与EventLoop/" class="article-date">
+  <time datetime="2018-01-05T11:08:37.000Z" itemprop="datePublished">2018-01-05</time>
+</a>
+
+        </li>
+        
+          <li>
+            <span class="label">Category:</span>
+            
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </div>
+
+
+          </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <a href="/2018/03/12/2017前端技术发展回顾/" id="article-nav-newer" class="article-nav-link-wrap newer">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          2017前端技术发展回顾
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/12/13/学习CSS-Grid布局/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">学习CSS Grid布局</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/valenzhou"><span class="fa fa-github-alt"></span></a></li>
+          
+            <li><a href="https://www.facebook.com/valen.zhou"><span class="fa fa-facebook"></span></a></li>
+          
+            <li><a href="https://twitter.com/valenzhou/"><span class="fa fa-twitter"></span></a></li>
+          
+            <li><a href="https://plus.google.com/"><span class="fa fa-google-plus"></span></a></li>
+          
+            <li><a href="https://www.google.com/"><span class="fa fa-globe"></span></a></li>
+          
+            <li><a href="/atom.xml"><span class="fa fa-rss"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>ipsum dolor sit amet, <strong>consectetur adipiscing elit.</strong> Fusce eget urna vitae velit <em>eleifend interdum at ac nisi. In nec ligula lacus. Cum sociis natoque</em> penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eu cursus erat, ut dapibus quam. Post</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
